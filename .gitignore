@@ -2,3 +2,11 @@ bazel-*
 mediapipe/MediaPipe.xcodeproj
 mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
 mediapipe/provisioning_profile.mobileprovision
+
+
+.DS_Store
+.aswb/
+bazel-mediapipe
+cache/
+local_cache/
+.vscode
