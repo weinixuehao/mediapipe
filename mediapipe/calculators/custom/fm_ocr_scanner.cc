@@ -6,7 +6,7 @@
 //  Copyright © 2018年 fengjian. All rights reserved.
 //
 
-#include "fm_ocr_scanner.hpp"
+#include "fm_ocr_scanner.h"
 #include <opencv2/imgproc/imgproc_c.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>

@@ -1,6 +1,6 @@
 # The bazelrc file for MediaPipe OSS.
-build --repo_env=http_proxy=http://127.0.0.1:1087
-build --repo_env=https_proxy=http://127.0.0.1:1087
+build --repo_env=http_proxy=http://127.0.0.1:7890
+build --repo_env=https_proxy=http://127.0.0.1:7890
 
 
 # Tensorflow needs remote repo

@@ -1,0 +1,1 @@
+adb logcat | $ANDROID_NDK_HOME/ndk-stack -sym /private/var/tmp/_bazel_chenlong/46cfe12d82525b8b2b43cf38d2da2eb7/execroot/mediapipe/bazel-out/android-arm64-v8a-dbg/bin/mediapipe/examples/android/src/java/com/google/mediapipe/apps/hededgedetectiongpu

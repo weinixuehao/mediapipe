@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include <array>
 #include <tuple>
-#include <opencv2/core/core.hpp>
+#include "mediapipe/framework/port/opencv_core_inc.h"
 
-std::tuple<bool, std::vector<cv::Point>, std::vector<cv::Mat> > ProcessEdgeImage(cv::Mat edge_image, cv::Mat color_image, bool strictMode, bool draw_debug_image);
+std::tuple<bool, std::vector<cv::Point>, std::vector<cv::Mat>> ProcessEdgeImage(cv::Mat edge_image, cv::Mat color_image, bool strictMode, bool draw_debug_image);
 
 #endif /* fm_ocr_scanner_hpp */
