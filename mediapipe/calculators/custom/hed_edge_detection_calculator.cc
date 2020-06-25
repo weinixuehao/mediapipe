@@ -1,6 +1,20 @@
 #include "mediapipe/framework/calculator_framework.h"
 #include "mediapipe/gpu/gpu_buffer.h"
+#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
 #include "tensorflow/lite/delegates/gpu/gl/gl_buffer.h"
+#endif
+
+#if defined(MEDIAPIPE_IOS)
+// #import <CoreVideo/CoreVideo.h>
+#import <Metal/Metal.h>
+// #import <MetalKit/MetalKit.h>
+
+// #import "mediapipe/gpu/MPPMetalHelper.h"
+// #include "mediapipe/gpu/MPPMetalUtil.h"
+// #include "mediapipe/gpu/gpu_buffer.h"
+// #include "tensorflow/lite/delegates/gpu/metal_delegate.h"
+#endif // iOS
+
 #include "mediapipe/gpu/gl_calculator_helper.h"
 #include "mediapipe/framework/port/opencv_core_inc.h"
 #include "mediapipe/framework/port/opencv_imgproc_inc.h"
@@ -9,9 +23,14 @@
 #include <ctime>
 #include <string>
 #include "fm_ocr_scanner.h"
-#include <android/log.h>
+// #include <android/log.h>
 
+#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
 typedef ::tflite::gpu::gl::GlBuffer GpuTensor;
+#elif defined(MEDIAPIPE_IOS)
+typedef id<MTLBuffer> GpuTensor;
+#endif
+
 namespace mediapipe
 {
 
@@ -205,6 +224,8 @@ namespace mediapipe
 
     ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(const std::vector<GpuTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
     {
+        float *hed_buf = nullptr;
+#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
         auto &hed_tensor = input_tensors[0];
         size_t float_num = hed_tensor.bytes_size() / 4;
         const float *dst = nullptr;
@@ -212,7 +233,11 @@ namespace mediapipe
             dst = src.data();
             return absl::OkStatus();
         });
-        float *hed_buf = const_cast<float *>(dst);
+        hed_buf = const_cast<float *>(dst);
+#elif defined(MEDIAPIPE_IOS)
+        auto &hed_tensor = input_tensors[0];
+        hed_buf = (float *)hed_tensor.contents;
+#endif
         cv::Mat hed_img(256, 256, CV_32FC1, hed_buf);
         int64 t0 = 0;
         t0 = cv::getTickCount();
@@ -232,9 +257,9 @@ namespace mediapipe
                 cv::Point real_point(cv_points[i].x * ratio_x, cv_points[i].y * ratio_y);
                 real_points[i] = real_point;
             }
-            cv::fillConvexPoly(*img,real_points,cv::Scalar(0,255,0));
+            cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
         }
-        __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
+        // __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
         return ::mediapipe::OkStatus();
     }
 
@@ -256,7 +281,7 @@ namespace mediapipe
         }
 
         {
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glEnable(GL_BLEND);
         }
 

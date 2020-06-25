@@ -22,8 +22,8 @@ load(
 )
 
 ios_application(
-    name = "EdgeDetectionGpuApp",
-    bundle_id = "com.ctsmed.mediapipe.EdgeDetectionGpu",
+    name = "HedEdgeDetectionApp",
+    bundle_id = "com.ctsmed.mediapipe.HedEdgeDetectionApp",
     families = [
         "iphone",
         "ipad",
@@ -31,11 +31,14 @@ ios_application(
     infoplists = ["Info.plist"],
     minimum_os_version = MIN_IOS_VERSION,
     provisioning_profile = "//mediapipe/examples/ios:provisioning_profile",
-    deps = [":EdgeDetectionGpuAppLibrary"],
+    deps = [
+        ":HedEdgeDetectionAppLibrary",
+        "@ios_opencv//:OpencvFramework",
+    ],
 )
 
 objc_library(
-    name = "EdgeDetectionGpuAppLibrary",
+    name = "HedEdgeDetectionAppLibrary",
     srcs = [
         "AppDelegate.m",
         "ViewController.mm",
@@ -48,7 +51,8 @@ objc_library(
     data = [
         "Base.lproj/LaunchScreen.storyboard",
         "Base.lproj/Main.storyboard",
-        "//mediapipe/graphs/edge_detection:mobile_gpu_binary_graph",
+        "//mediapipe/graphs/hed_edge_detection:mobile_gpu_binary_graph",
+        "//mediapipe/models:hed_graph.tflite",
     ],
     sdk_frameworks = [
         "AVFoundation",
@@ -57,9 +61,14 @@ objc_library(
         "UIKit",
     ],
     deps = [
-        "//mediapipe/graphs/edge_detection:mobile_calculators",
         "//mediapipe/objc:mediapipe_framework_ios",
         "//mediapipe/objc:mediapipe_input_sources_ios",
         "//mediapipe/objc:mediapipe_layer_renderer",
-    ],
+    ] + select({
+        "//mediapipe:ios_i386": [],
+        "//mediapipe:ios_x86_64": [],
+        "//conditions:default": [
+            "//mediapipe/graphs/hed_edge_detection:mobile_calculators",
+        ],
+    }),
 )
