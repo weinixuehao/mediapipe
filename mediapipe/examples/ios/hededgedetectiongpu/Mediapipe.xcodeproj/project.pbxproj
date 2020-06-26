@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		004D3F505004176700000000 /* callback_packet_calculator.cc in internal */ = {isa = PBXBuildFile; fileRef = F6E8A13C5004176700000000 /* callback_packet_calculator.cc */; };
+		004D3F505004176700000000 /* callback_packet_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = F6E8A13C5004176700000000 /* callback_packet_calculator.cc */; };
+		AB334DEB24A45B6300201195 /* tflite_inference_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,6 +21,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB334DE224A447B300201195 /* custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = custom; path = mediapipe/calculators/custom; sourceTree = "<group>"; };
+		AB334DE324A452C400201195 /* hededgedetectiongpu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = hededgedetectiongpu; path = mediapipe/examples/ios/hededgedetectiongpu; sourceTree = "<group>"; };
+		AB334DE424A4575300201195 /* graphs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = graphs; path = mediapipe/graphs; sourceTree = "<group>"; };
+		AB334DE524A45A0600201195 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = models; path = mediapipe/models; sourceTree = "<group>"; };
+		AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = tflite_inference_calculator.cc; path = mediapipe/calculators/tflite/tflite_inference_calculator.cc; sourceTree = "<group>"; };
 		F6E8A13C096A90E100000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/facedetectioncpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C10E4250600000000 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = Info.plist; path = "tulsi-workspace/bazel-tulsi-includes/x/x/mediapipe/examples/ios/hededgedetectiongpu/HedEdgeDetectionApp-intermediates/Info.plist"; sourceTree = "<group>"; };
 		F6E8A13C27EE855C00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = "tulsi-workspace//BUILD"; sourceTree = "<group>"; };
@@ -28,13 +34,13 @@
 		F6E8A13C5F8A935900000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/edgedetectiongpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C6E145E1100000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/multihandtrackinggpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C748099CE00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/calculators/internal/BUILD; sourceTree = "<group>"; };
-		F6E8A13C9414A8B000000000 /* HedEdgeDetectionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; name = HedEdgeDetectionApp.app; path = HedEdgeDetectionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6E8A13C9414A8B000000000 /* HedEdgeDetectionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = HedEdgeDetectionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E8A13CAC043F3500000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/BUILD; sourceTree = "<group>"; };
 		F6E8A13CADD6783B00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/objc/BUILD; sourceTree = "<group>"; };
 		F6E8A13CB21A36B200000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/facedetectiongpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13CBBBE6EC900000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/handtrackinggpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13CBE9B760C00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/BUILD; sourceTree = "<group>"; };
-		F6E8A13CBFAA888A00000000 /* lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a; path = lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6E8A13CBFAA888A00000000 /* lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6E8A13CE52F49D800000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/objectdetectiongpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13CFC0A6C8E00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/objectdetectioncpu/BUILD; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +141,8 @@
 		183302D57C5A998100000000 /* calculators */ = {
 			isa = PBXGroup;
 			children = (
+				AB334DEC24A45B6A00201195 /* tflite */,
+				AB334DE224A447B300201195 /* custom */,
 				183302D56D2FF50A00000000 /* internal */,
 			);
 			name = calculators;
@@ -209,6 +217,7 @@
 		183302D5D763D69800000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				AB334DE324A452C400201195 /* hededgedetectiongpu */,
 				F6E8A13CAC043F3500000000 /* BUILD */,
 				183302D52F39CEBE00000000 /* edgedetectiongpu */,
 				183302D57B4244D400000000 /* facedetectioncpu */,
@@ -233,6 +242,8 @@
 		183302D5DB6B534A00000001 /* mediapipe */ = {
 			isa = PBXGroup;
 			children = (
+				AB334DE524A45A0600201195 /* models */,
+				AB334DE424A4575300201195 /* graphs */,
 				F6E8A13CBE9B760C00000000 /* BUILD */,
 				183302D57C5A998100000000 /* calculators */,
 				183302D53817ECD500000001 /* examples */,
@@ -263,6 +274,14 @@
 				F6E8A13CBFAA888A00000000 /* lib_idx_callback_packet_calculator_1D68ACE6_ios_min10.0.a */,
 			);
 			name = Indexer;
+			sourceTree = "<group>";
+		};
+		AB334DEC24A45B6A00201195 /* tflite */ = {
+			isa = PBXGroup;
+			children = (
+				AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */,
+			);
+			name = tflite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,9 +350,12 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 183302D5429BA5C700000000 /* mainGroup */;
+			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				3BA907034B1B3F9400000000 /* HedEdgeDetectionApp */,
 				3E96346D33513FB200000000 /* _bazel_clean_ */,
@@ -356,7 +378,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "set -e\ncd \"${SRCROOT}/../../../..\"\nexec \"${PROJECT_FILE_PATH}/.tulsi/Scripts/bazel_build.py\" //mediapipe/examples/ios/hededgedetectiongpu:HedEdgeDetectionApp --bazel \"/usr/local/bin/bazel\" --bazel_bin_path \"bazel-bin\" --verbose ";
-			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -365,7 +386,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				004D3F505004176700000000 /* callback_packet_calculator.cc in internal */,
+				AB334DEB24A45B6300201195 /* tflite_inference_calculator.cc in Sources */,
+				004D3F505004176700000000 /* callback_packet_calculator.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +396,7 @@
 /* Begin PBXTargetDependency section */
 		515E636F33513FB300000000 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			target = 3E96346D33513FB200000000 /* _bazel_clean_ */;
 			targetProxy = 4555972C33513FB300000000 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -536,7 +559,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(TULSI_BWRS) $(TULSI_WR)/bazel-bin $(TULSI_WR)/bazel-genfiles $(TULSI_BWRS)/bazel-tulsi-includes/x/x";
+				HEADER_SEARCH_PATHS = (
+					"$(TULSI_BWRS)",
+					"$(TULSI_WR)/bazel-bin",
+					"$(TULSI_WR)/bazel-genfiles",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PYTHONIOENCODING = utf8;
 				SDKROOT = iphoneos;
@@ -568,9 +596,34 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
-				HEADER_SEARCH_PATHS = "$(inherited) $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags/_virtual_includes/gflags $(TULSI_WR)/. $(TULSI_BWRS)/bazel-tulsi-includes/x/x/ $(TULSI_WR)/external/com_google_protobuf $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf $(TULSI_WR)/external/zlib $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/zlib $(TULSI_WR)/external/com_github_glog_glog $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog $(TULSI_WR)/external/com_github_gflags_gflags $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags $(TULSI_WR)/external/com_google_absl $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_absl $(TULSI_WR)/external/com_google_protobuf/src $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf/src $(TULSI_WR)/external/com_github_glog_glog/src $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog/src ";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags/_virtual_includes/gflags",
+					"$(TULSI_WR)/.",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/",
+					"$(TULSI_WR)/external/com_google_protobuf",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf",
+					"$(TULSI_WR)/external/zlib",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/zlib",
+					"$(TULSI_WR)/external/com_github_glog_glog",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog",
+					"$(TULSI_WR)/external/com_github_gflags_gflags",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags",
+					"$(TULSI_WR)/external/com_google_absl",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_absl",
+					"$(TULSI_WR)/external/com_google_protobuf/src",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf/src",
+					"$(TULSI_WR)/external/com_github_glog_glog/src",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog/src",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				OTHER_CFLAGS = "-D_FORTIFY_SOURCE=1 -D__CLANG_SUPPORT_DYN_ANNOTATION__ -D__DATE__=\"redacted\" -D__TIMESTAMP__=\"redacted\" -D__TIME__=\"redacted\"";
+				OTHER_CFLAGS = (
+					"-D_FORTIFY_SOURCE=1",
+					"-D__CLANG_SUPPORT_DYN_ANNOTATION__",
+					"-D__DATE__=\"redacted\"",
+					"-D__TIMESTAMP__=\"redacted\"",
+					"-D__TIME__=\"redacted\"",
+				);
 				PRODUCT_NAME = _idx_callback_packet_calculator_1D68ACE6_ios_min10.0;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(TULSI_WR)";
@@ -602,7 +655,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(TULSI_BWRS) $(TULSI_WR)/bazel-bin $(TULSI_WR)/bazel-genfiles $(TULSI_BWRS)/bazel-tulsi-includes/x/x";
+				HEADER_SEARCH_PATHS = (
+					"$(TULSI_BWRS)",
+					"$(TULSI_WR)/bazel-bin",
+					"$(TULSI_WR)/bazel-genfiles",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PYTHONIOENCODING = utf8;
 				SDKROOT = iphoneos;
@@ -634,14 +692,86 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
-				HEADER_SEARCH_PATHS = "$(inherited) $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags/_virtual_includes/gflags $(TULSI_WR)/. $(TULSI_BWRS)/bazel-tulsi-includes/x/x/ $(TULSI_WR)/external/com_google_protobuf $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf $(TULSI_WR)/external/zlib $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/zlib $(TULSI_WR)/external/com_github_glog_glog $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog $(TULSI_WR)/external/com_github_gflags_gflags $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags $(TULSI_WR)/external/com_google_absl $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_absl $(TULSI_WR)/external/com_google_protobuf/src $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf/src $(TULSI_WR)/external/com_github_glog_glog/src $(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog/src ";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags/_virtual_includes/gflags",
+					"$(TULSI_WR)/.",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/",
+					"$(TULSI_WR)/external/com_google_protobuf",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf",
+					"$(TULSI_WR)/external/zlib",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/zlib",
+					"$(TULSI_WR)/external/com_github_glog_glog",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog",
+					"$(TULSI_WR)/external/com_github_gflags_gflags",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_gflags_gflags",
+					"$(TULSI_WR)/external/com_google_absl",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_absl",
+					"$(TULSI_WR)/external/com_google_protobuf/src",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_google_protobuf/src",
+					"$(TULSI_WR)/external/com_github_glog_glog/src",
+					"$(TULSI_BWRS)/bazel-tulsi-includes/x/x/external/com_github_glog_glog/src",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				OTHER_CFLAGS = "-D_FORTIFY_SOURCE=1 -D__CLANG_SUPPORT_DYN_ANNOTATION__ -D__DATE__=\"redacted\" -D__TIMESTAMP__=\"redacted\" -D__TIME__=\"redacted\"";
+				OTHER_CFLAGS = (
+					"-D_FORTIFY_SOURCE=1",
+					"-D__CLANG_SUPPORT_DYN_ANNOTATION__",
+					"-D__DATE__=\"redacted\"",
+					"-D__TIMESTAMP__=\"redacted\"",
+					"-D__TIME__=\"redacted\"",
+				);
 				PRODUCT_NAME = _idx_callback_packet_calculator_1D68ACE6_ios_min10.0;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(TULSI_WR)";
 			};
 			name = Debug;
+		};
+		AB334DDB24A4475500201195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = Debug;
+		};
+		AB334DDC24A4475500201195 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = Release;
+		};
+		AB334DDD24A4475500201195 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		AB334DDE24A4475500201195 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _bazel_clean_;
+			};
+			name = __TulsiTestRunner_Release;
+		};
+		AB334DDF24A4475500201195 /* __TulsiTestRunner_Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _idx_callback_packet_calculator_1D68ACE6_ios_min10.0;
+			};
+			name = __TulsiTestRunner_Debug;
+		};
+		AB334DE024A4475500201195 /* __TulsiTestRunner_Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = _idx_callback_packet_calculator_1D68ACE6_ios_min10.0;
+			};
+			name = __TulsiTestRunner_Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -651,8 +781,11 @@
 			buildConfigurations = (
 				08687BE6FB05351600000002 /* Debug */,
 				08687BE6928CF56B00000002 /* Release */,
+				AB334DDF24A4475500201195 /* __TulsiTestRunner_Debug */,
+				AB334DE024A4475500201195 /* __TulsiTestRunner_Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CAE17817AC47E5F900000000 /* Build configuration list for PBXNativeTarget "HedEdgeDetectionApp" */ = {
 			isa = XCConfigurationList;
@@ -663,6 +796,7 @@
 				08687BE6727D1A1200000001 /* __TulsiTestRunner_Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CAE17817CBA5F4EB00000000 /* Build configuration list for PBXProject "Mediapipe" */ = {
 			isa = XCConfigurationList;
@@ -673,12 +807,18 @@
 				08687BE6727D1A1200000000 /* __TulsiTestRunner_Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CAE17817E77A064900000000 /* Build configuration list for PBXLegacyTarget "_bazel_clean_" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
+				AB334DDB24A4475500201195 /* Debug */,
+				AB334DDC24A4475500201195 /* Release */,
+				AB334DDD24A4475500201195 /* __TulsiTestRunner_Debug */,
+				AB334DDE24A4475500201195 /* __TulsiTestRunner_Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

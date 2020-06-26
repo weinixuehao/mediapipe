@@ -1,0 +1,12 @@
+{
+  "configDefaults" : {
+    "optionSet" : {
+
+    }
+  },
+  "packages" : [
+    "mediapipe/examples/ios/hededgedetectiongpu"
+  ],
+  "projectName" : "Mediapipe",
+  "workspaceRoot" : "../.."
+}
