@@ -7,23 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EC1F6236-5DB0-47A5-92F0-85E2992E8CE0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "TfLiteInferenceCalculator::GetContract(cc)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "476AA375-82BE-4942-85A6-7769B849734A"
+            uuid = "14891EE1-0836-48C9-84D8-1C25DD3EBC7B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -39,32 +23,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CA3E3380-B815-43A7-8650-5D4B5F6BD370"
+            uuid = "39CFF561-E13E-461B-BEB4-1438FC72F4E4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
-            landmarkName = "TfLiteInferenceCalculator::Process(cc)"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
+            landmarkName = "TfLiteInferenceCalculator::LoadModel(cc)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F37C29DC-136E-4442-B62A-E3EA13D2DF86"
+            uuid = "C46D5143-BEA4-4F37-AFF9-C4BB944BA4C6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../../../../../var/tmp/_bazel_chenlong/46cfe12d82525b8b2b43cf38d2da2eb7/external/org_tensorflow/tensorflow/lite/delegates/gpu/metal/compute_task.mm"
+            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "-encodeWithEncoder:inputOutputBuffers:"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
+            landmarkName = "TfLiteInferenceCalculator::LoadDelegate(cc)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7B87CDB-86EB-461F-A825-952E515D4623"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "TfLiteInferenceCalculator::LoadDelegate(cc)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
