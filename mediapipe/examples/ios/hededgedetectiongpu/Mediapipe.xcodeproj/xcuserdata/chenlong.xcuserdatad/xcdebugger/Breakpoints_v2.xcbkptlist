@@ -7,64 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "14891EE1-0836-48C9-84D8-1C25DD3EBC7B"
+            uuid = "9B2FBFA9-5E17-46DF-96AC-D572AB63A5D8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
+            filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
-            landmarkName = "TfLiteInferenceCalculator::Open(cc)"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "HedEdgeDetectionCalculator::tensorToOverlay(input_tensors, image_mat)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "39CFF561-E13E-461B-BEB4-1438FC72F4E4"
+            uuid = "BF4D857D-869F-4EED-A51F-F82F1E31DC7B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
+            filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
-            landmarkName = "TfLiteInferenceCalculator::LoadModel(cc)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "HedEdgeDetectionCalculator::GlSetup(cc)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C46D5143-BEA4-4F37-AFF9-C4BB944BA4C6"
-            shouldBeEnabled = "Yes"
+            uuid = "C2304CED-F8DA-470C-BE74-FFC67C9F3A03"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
+            filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "726"
-            endingLineNumber = "726"
-            landmarkName = "TfLiteInferenceCalculator::LoadDelegate(cc)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A7B87CDB-86EB-461F-A825-952E515D4623"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
-            landmarkName = "TfLiteInferenceCalculator::LoadDelegate(cc)"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "HedEdgeDetectionCalculator::tensorToOverlay(input_tensors, image_mat)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

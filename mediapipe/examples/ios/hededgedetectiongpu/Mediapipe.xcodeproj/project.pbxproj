@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		004D3F505004176700000000 /* callback_packet_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = F6E8A13C5004176700000000 /* callback_packet_calculator.cc */; };
 		AB334DEB24A45B6300201195 /* tflite_inference_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */; };
+		ABCF414224A87EBC00040087 /* BUILD in Sources */ = {isa = PBXBuildFile; fileRef = ABCF413E24A87EBC00040087 /* BUILD */; };
+		ABCF414324A87EBC00040087 /* fm_ocr_scanner.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF413F24A87EBC00040087 /* fm_ocr_scanner.cc */; };
+		ABCF414424A87EBC00040087 /* fm_ocr_scanner.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414024A87EBC00040087 /* fm_ocr_scanner.h */; };
+		ABCF414524A87EBC00040087 /* hed_edge_detection_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414124A87EBC00040087 /* hed_edge_detection_calculator.cc */; };
+		ABCF414724A8918600040087 /* MPPGLViewRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414624A8918600040087 /* MPPGLViewRenderer.mm */; };
+		ABCF414B24A894BC00040087 /* gl_quad_renderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414924A894BB00040087 /* gl_quad_renderer.h */; };
+		ABCF414C24A894BC00040087 /* gl_quad_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */; };
+		ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,11 +29,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AB334DE224A447B300201195 /* custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = custom; path = mediapipe/calculators/custom; sourceTree = "<group>"; };
 		AB334DE324A452C400201195 /* hededgedetectiongpu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = hededgedetectiongpu; path = mediapipe/examples/ios/hededgedetectiongpu; sourceTree = "<group>"; };
 		AB334DE424A4575300201195 /* graphs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = graphs; path = mediapipe/graphs; sourceTree = "<group>"; };
 		AB334DE524A45A0600201195 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = models; path = mediapipe/models; sourceTree = "<group>"; };
 		AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = tflite_inference_calculator.cc; path = mediapipe/calculators/tflite/tflite_inference_calculator.cc; sourceTree = "<group>"; };
+		ABCF413E24A87EBC00040087 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/calculators/custom/BUILD; sourceTree = "<group>"; };
+		ABCF413F24A87EBC00040087 /* fm_ocr_scanner.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fm_ocr_scanner.cc; path = mediapipe/calculators/custom/fm_ocr_scanner.cc; sourceTree = "<group>"; };
+		ABCF414024A87EBC00040087 /* fm_ocr_scanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fm_ocr_scanner.h; path = mediapipe/calculators/custom/fm_ocr_scanner.h; sourceTree = "<group>"; };
+		ABCF414124A87EBC00040087 /* hed_edge_detection_calculator.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = hed_edge_detection_calculator.cc; path = mediapipe/calculators/custom/hed_edge_detection_calculator.cc; sourceTree = "<group>"; };
+		ABCF414624A8918600040087 /* MPPGLViewRenderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = MPPGLViewRenderer.mm; path = mediapipe/objc/MPPGLViewRenderer.mm; sourceTree = "<group>"; };
+		ABCF414924A894BB00040087 /* gl_quad_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gl_quad_renderer.h; path = mediapipe/gpu/gl_quad_renderer.h; sourceTree = "<group>"; };
+		ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gl_quad_renderer.cc; path = mediapipe/gpu/gl_quad_renderer.cc; sourceTree = "<group>"; };
+		ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPGLViewRenderer.h; path = mediapipe/objc/MPPGLViewRenderer.h; sourceTree = "<group>"; };
 		F6E8A13C096A90E100000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/facedetectioncpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C10E4250600000000 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = Info.plist; path = "tulsi-workspace/bazel-tulsi-includes/x/x/mediapipe/examples/ios/hededgedetectiongpu/HedEdgeDetectionApp-intermediates/Info.plist"; sourceTree = "<group>"; };
 		F6E8A13C27EE855C00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = "tulsi-workspace//BUILD"; sourceTree = "<group>"; };
@@ -141,8 +156,8 @@
 		183302D57C5A998100000000 /* calculators */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF413A24A87E3E00040087 /* custom */,
 				AB334DEC24A45B6A00201195 /* tflite */,
-				AB334DE224A447B300201195 /* custom */,
 				183302D56D2FF50A00000000 /* internal */,
 			);
 			name = calculators;
@@ -242,6 +257,7 @@
 		183302D5DB6B534A00000001 /* mediapipe */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF414824A8949200040087 /* gpu */,
 				AB334DE524A45A0600201195 /* models */,
 				AB334DE424A4575300201195 /* graphs */,
 				F6E8A13CBE9B760C00000000 /* BUILD */,
@@ -263,6 +279,8 @@
 		183302D5EBD792B300000000 /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */,
+				ABCF414624A8918600040087 /* MPPGLViewRenderer.mm */,
 				F6E8A13CADD6783B00000000 /* BUILD */,
 			);
 			name = objc;
@@ -282,6 +300,26 @@
 				AB334DEA24A45B6300201195 /* tflite_inference_calculator.cc */,
 			);
 			name = tflite;
+			sourceTree = "<group>";
+		};
+		ABCF413A24A87E3E00040087 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF413E24A87EBC00040087 /* BUILD */,
+				ABCF413F24A87EBC00040087 /* fm_ocr_scanner.cc */,
+				ABCF414024A87EBC00040087 /* fm_ocr_scanner.h */,
+				ABCF414124A87EBC00040087 /* hed_edge_detection_calculator.cc */,
+			);
+			name = custom;
+			sourceTree = "<group>";
+		};
+		ABCF414824A8949200040087 /* gpu */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */,
+				ABCF414924A894BB00040087 /* gl_quad_renderer.h */,
+			);
+			name = gpu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +424,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */,
+				ABCF414B24A894BC00040087 /* gl_quad_renderer.h in Sources */,
+				ABCF414C24A894BC00040087 /* gl_quad_renderer.cc in Sources */,
+				ABCF414724A8918600040087 /* MPPGLViewRenderer.mm in Sources */,
+				ABCF414224A87EBC00040087 /* BUILD in Sources */,
+				ABCF414324A87EBC00040087 /* fm_ocr_scanner.cc in Sources */,
+				ABCF414424A87EBC00040087 /* fm_ocr_scanner.h in Sources */,
+				ABCF414524A87EBC00040087 /* hed_edge_detection_calculator.cc in Sources */,
 				AB334DEB24A45B6300201195 /* tflite_inference_calculator.cc in Sources */,
 				004D3F505004176700000000 /* callback_packet_calculator.cc in Sources */,
 			);
