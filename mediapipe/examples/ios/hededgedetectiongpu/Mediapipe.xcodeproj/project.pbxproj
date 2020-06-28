@@ -17,6 +17,7 @@
 		ABCF414B24A894BC00040087 /* gl_quad_renderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414924A894BB00040087 /* gl_quad_renderer.h */; };
 		ABCF414C24A894BC00040087 /* gl_quad_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */; };
 		ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */; };
+		ABCF415124A8E19F00040087 /* flow_limiter_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF415024A8E19F00040087 /* flow_limiter_calculator.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		ABCF414924A894BB00040087 /* gl_quad_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gl_quad_renderer.h; path = mediapipe/gpu/gl_quad_renderer.h; sourceTree = "<group>"; };
 		ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gl_quad_renderer.cc; path = mediapipe/gpu/gl_quad_renderer.cc; sourceTree = "<group>"; };
 		ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPGLViewRenderer.h; path = mediapipe/objc/MPPGLViewRenderer.h; sourceTree = "<group>"; };
+		ABCF415024A8E19F00040087 /* flow_limiter_calculator.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = flow_limiter_calculator.cc; path = mediapipe/calculators/core/flow_limiter_calculator.cc; sourceTree = "<group>"; };
 		F6E8A13C096A90E100000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/facedetectioncpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C10E4250600000000 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = Info.plist; path = "tulsi-workspace/bazel-tulsi-includes/x/x/mediapipe/examples/ios/hededgedetectiongpu/HedEdgeDetectionApp-intermediates/Info.plist"; sourceTree = "<group>"; };
 		F6E8A13C27EE855C00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = "tulsi-workspace//BUILD"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		183302D57C5A998100000000 /* calculators */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF414F24A8E14100040087 /* core */,
 				ABCF413A24A87E3E00040087 /* custom */,
 				AB334DEC24A45B6A00201195 /* tflite */,
 				183302D56D2FF50A00000000 /* internal */,
@@ -322,6 +325,14 @@
 			name = gpu;
 			sourceTree = "<group>";
 		};
+		ABCF414F24A8E14100040087 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF415024A8E19F00040087 /* flow_limiter_calculator.cc */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -424,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				ABCF415124A8E19F00040087 /* flow_limiter_calculator.cc in Sources */,
 				ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */,
 				ABCF414B24A894BC00040087 /* gl_quad_renderer.h in Sources */,
 				ABCF414C24A894BC00040087 /* gl_quad_renderer.cc in Sources */,
