@@ -1,5 +1,6 @@
 #include "mediapipe/framework/calculator_framework.h"
 #include "mediapipe/gpu/gpu_buffer.h"
+#include "tensorflow/lite/c/common.h"
 #if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
 #include "tensorflow/lite/delegates/gpu/gl/gl_buffer.h"
 #endif
@@ -25,11 +26,11 @@
 #include "fm_ocr_scanner.h"
 // #include <android/log.h>
 
-#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
-typedef ::tflite::gpu::gl::GlBuffer GpuTensor;
-#elif defined(MEDIAPIPE_IOS)
-typedef id<MTLBuffer> GpuTensor;
-#endif
+//#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
+//typedef ::tflite::gpu::gl::GlBuffer GpuTensor;
+//#elif defined(MEDIAPIPE_IOS)
+//typedef id<MTLBuffer> GpuTensor;
+//#endif
 
 namespace mediapipe
 {
@@ -57,7 +58,7 @@ namespace mediapipe
         ::mediapipe::Status GlSetup(CalculatorContext *cc);
         ::mediapipe::Status GlRender(CalculatorContext *cc);
         ::mediapipe::Status renderToGpu(CalculatorContext *cc, uchar *overlay_image);
-        ::mediapipe::Status tensorToOverlay(const std::vector<GpuTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat);
+        ::mediapipe::Status tensorToOverlay(const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat);
 
     private:
         mediapipe::GlCalculatorHelper gpu_helper_;
@@ -70,7 +71,7 @@ namespace mediapipe
 
     ::mediapipe::Status HedEdgeDetectionCalculator::GetContract(CalculatorContract *cc)
     {
-        cc->Inputs().Index(0).Set<std::vector<GpuTensor>>();
+        cc->Inputs().Index(0).Set<std::vector<TfLiteTensor>>();
         cc->Inputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
         cc->Outputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
         MP_RETURN_IF_ERROR(mediapipe::GlCalculatorHelper::UpdateContract(cc));
@@ -222,33 +223,19 @@ namespace mediapipe
         return ::mediapipe::OkStatus();
     }
 
-    ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(const std::vector<GpuTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
+    ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
     {
-        float *hed_buf = nullptr;
-#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
+        int64 t0 = cv::getTickCount();
         auto &hed_tensor = input_tensors[0];
-        size_t float_num = hed_tensor.bytes_size() / 4;
-        const float *dst = nullptr;
-        auto ret = hed_tensor.MappedRead<float>([&dst](absl::Span<const float> src) {
-            dst = src.data();
-            return absl::OkStatus();
-        });
-        hed_buf = const_cast<float *>(dst);
-#elif defined(MEDIAPIPE_IOS)
-        auto &hed_tensor = input_tensors[0];
-        hed_buf = (float *)hed_tensor.contents;
-#endif
+        float *hed_buf = hed_tensor.data.f;
         cv::Mat hed_img(256, 256, CV_32FC1, hed_buf);
-        int64 t0 = 0;
-        t0 = cv::getTickCount();
         auto tuple = ProcessEdgeImage(hed_img, hed_img, true, false);
-        int64 t1 = cv::getTickCount();
-        double secs = (t1 - t0) / cv::getTickFrequency();
         auto find_rect = std::get<0>(tuple);
         auto cv_points = std::get<1>(tuple);
         if (find_rect)
         {
             cv::Mat *img = image_mat.get();
+            float scale = width_ / (float)height_;
             float ratio_y = height_ / 256.0;
             float ratio_x = width_ / 256.0;
             std::vector<cv::Point> real_points(4);
@@ -259,6 +246,8 @@ namespace mediapipe
             }
             cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
         }
+        int64 t1 = cv::getTickCount();
+        double secs = (t1 - t0) / cv::getTickFrequency();
         // __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
         return ::mediapipe::OkStatus();
     }
@@ -324,7 +313,7 @@ namespace mediapipe
                 }));
             gpu_initialized_ = true;
         }
-        const auto &input_tensors = cc->Inputs().Index(0).Get<std::vector<GpuTensor>>();
+        const auto &input_tensors = cc->Inputs().Index(0).Get<std::vector<TfLiteTensor>>();
         MP_RETURN_IF_ERROR(gpu_helper_.RunInGlContext([this, &input_tensors, cc]() -> ::mediapipe::Status {
             std::unique_ptr<cv::Mat> image_mat;
             image_mat = absl::make_unique<cv::Mat>(height_, width_, CV_8UC3);

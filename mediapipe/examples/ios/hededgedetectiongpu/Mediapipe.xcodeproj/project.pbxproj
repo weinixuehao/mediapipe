@@ -18,6 +18,16 @@
 		ABCF414C24A894BC00040087 /* gl_quad_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */; };
 		ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */; };
 		ABCF415124A8E19F00040087 /* flow_limiter_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABCF415024A8E19F00040087 /* flow_limiter_calculator.cc */; };
+		ABE02FF424A9BE0500B2F4AD /* CGImageRefUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FEA24A9BE0000B2F4AD /* CGImageRefUtils.mm */; };
+		ABE02FF524A9BE0500B2F4AD /* MPPInputSource.h in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FEB24A9BE0100B2F4AD /* MPPInputSource.h */; };
+		ABE02FF624A9BE0500B2F4AD /* MPPLayerRenderer.h in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FEC24A9BE0200B2F4AD /* MPPLayerRenderer.h */; };
+		ABE02FF724A9BE0500B2F4AD /* MPPLayerRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FED24A9BE0200B2F4AD /* MPPLayerRenderer.m */; };
+		ABE02FF824A9BE0500B2F4AD /* CGImageRefUtils.h in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FEE24A9BE0200B2F4AD /* CGImageRefUtils.h */; };
+		ABE02FF924A9BE0500B2F4AD /* MPPGraph.h in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FEF24A9BE0300B2F4AD /* MPPGraph.h */; };
+		ABE02FFA24A9BE0500B2F4AD /* MPPGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FF024A9BE0300B2F4AD /* MPPGraph.mm */; };
+		ABE02FFB24A9BE0500B2F4AD /* MPPInputSource.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FF124A9BE0400B2F4AD /* MPPInputSource.m */; };
+		ABE02FFC24A9BE0500B2F4AD /* MPPCameraInputSource.h in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FF224A9BE0400B2F4AD /* MPPCameraInputSource.h */; };
+		ABE02FFD24A9BE0500B2F4AD /* MPPCameraInputSource.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE02FF324A9BE0400B2F4AD /* MPPCameraInputSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +53,16 @@
 		ABCF414A24A894BC00040087 /* gl_quad_renderer.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gl_quad_renderer.cc; path = mediapipe/gpu/gl_quad_renderer.cc; sourceTree = "<group>"; };
 		ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPGLViewRenderer.h; path = mediapipe/objc/MPPGLViewRenderer.h; sourceTree = "<group>"; };
 		ABCF415024A8E19F00040087 /* flow_limiter_calculator.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = flow_limiter_calculator.cc; path = mediapipe/calculators/core/flow_limiter_calculator.cc; sourceTree = "<group>"; };
+		ABE02FEA24A9BE0000B2F4AD /* CGImageRefUtils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CGImageRefUtils.mm; path = mediapipe/objc/CGImageRefUtils.mm; sourceTree = "<group>"; };
+		ABE02FEB24A9BE0100B2F4AD /* MPPInputSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPInputSource.h; path = mediapipe/objc/MPPInputSource.h; sourceTree = "<group>"; };
+		ABE02FEC24A9BE0200B2F4AD /* MPPLayerRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPLayerRenderer.h; path = mediapipe/objc/MPPLayerRenderer.h; sourceTree = "<group>"; };
+		ABE02FED24A9BE0200B2F4AD /* MPPLayerRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPPLayerRenderer.m; path = mediapipe/objc/MPPLayerRenderer.m; sourceTree = "<group>"; };
+		ABE02FEE24A9BE0200B2F4AD /* CGImageRefUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CGImageRefUtils.h; path = mediapipe/objc/CGImageRefUtils.h; sourceTree = "<group>"; };
+		ABE02FEF24A9BE0300B2F4AD /* MPPGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPGraph.h; path = mediapipe/objc/MPPGraph.h; sourceTree = "<group>"; };
+		ABE02FF024A9BE0300B2F4AD /* MPPGraph.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = MPPGraph.mm; path = mediapipe/objc/MPPGraph.mm; sourceTree = "<group>"; };
+		ABE02FF124A9BE0400B2F4AD /* MPPInputSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPPInputSource.m; path = mediapipe/objc/MPPInputSource.m; sourceTree = "<group>"; };
+		ABE02FF224A9BE0400B2F4AD /* MPPCameraInputSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPPCameraInputSource.h; path = mediapipe/objc/MPPCameraInputSource.h; sourceTree = "<group>"; };
+		ABE02FF324A9BE0400B2F4AD /* MPPCameraInputSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPPCameraInputSource.m; path = mediapipe/objc/MPPCameraInputSource.m; sourceTree = "<group>"; };
 		F6E8A13C096A90E100000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/facedetectioncpu/BUILD; sourceTree = "<group>"; };
 		F6E8A13C10E4250600000000 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = Info.plist; path = "tulsi-workspace/bazel-tulsi-includes/x/x/mediapipe/examples/ios/hededgedetectiongpu/HedEdgeDetectionApp-intermediates/Info.plist"; sourceTree = "<group>"; };
 		F6E8A13C27EE855C00000000 /* BUILD */ = {isa = PBXFileReference; lastKnownFileType = text; name = BUILD; path = "tulsi-workspace//BUILD"; sourceTree = "<group>"; };
@@ -282,6 +302,16 @@
 		183302D5EBD792B300000000 /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				ABE02FEE24A9BE0200B2F4AD /* CGImageRefUtils.h */,
+				ABE02FEA24A9BE0000B2F4AD /* CGImageRefUtils.mm */,
+				ABE02FF224A9BE0400B2F4AD /* MPPCameraInputSource.h */,
+				ABE02FF324A9BE0400B2F4AD /* MPPCameraInputSource.m */,
+				ABE02FEF24A9BE0300B2F4AD /* MPPGraph.h */,
+				ABE02FF024A9BE0300B2F4AD /* MPPGraph.mm */,
+				ABE02FEB24A9BE0100B2F4AD /* MPPInputSource.h */,
+				ABE02FF124A9BE0400B2F4AD /* MPPInputSource.m */,
+				ABE02FEC24A9BE0200B2F4AD /* MPPLayerRenderer.h */,
+				ABE02FED24A9BE0200B2F4AD /* MPPLayerRenderer.m */,
 				ABCF414D24A8965400040087 /* MPPGLViewRenderer.h */,
 				ABCF414624A8918600040087 /* MPPGLViewRenderer.mm */,
 				F6E8A13CADD6783B00000000 /* BUILD */,
@@ -435,6 +465,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				ABE02FF424A9BE0500B2F4AD /* CGImageRefUtils.mm in Sources */,
+				ABE02FF524A9BE0500B2F4AD /* MPPInputSource.h in Sources */,
+				ABE02FF624A9BE0500B2F4AD /* MPPLayerRenderer.h in Sources */,
+				ABE02FF724A9BE0500B2F4AD /* MPPLayerRenderer.m in Sources */,
+				ABE02FF824A9BE0500B2F4AD /* CGImageRefUtils.h in Sources */,
+				ABE02FF924A9BE0500B2F4AD /* MPPGraph.h in Sources */,
+				ABE02FFA24A9BE0500B2F4AD /* MPPGraph.mm in Sources */,
+				ABE02FFB24A9BE0500B2F4AD /* MPPInputSource.m in Sources */,
+				ABE02FFC24A9BE0500B2F4AD /* MPPCameraInputSource.h in Sources */,
+				ABE02FFD24A9BE0500B2F4AD /* MPPCameraInputSource.m in Sources */,
 				ABCF415124A8E19F00040087 /* flow_limiter_calculator.cc in Sources */,
 				ABCF414E24A8965400040087 /* MPPGLViewRenderer.h in Sources */,
 				ABCF414B24A894BC00040087 /* gl_quad_renderer.h in Sources */,

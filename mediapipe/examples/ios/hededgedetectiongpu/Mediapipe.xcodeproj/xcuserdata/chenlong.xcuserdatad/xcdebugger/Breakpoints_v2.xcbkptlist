@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B2FBFA9-5E17-46DF-96AC-D572AB63A5D8"
+            uuid = "405970C9-3AE5-41D9-B349-7FA920A5A7A4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "HedEdgeDetectionCalculator::tensorToOverlay(input_tensors, image_mat)"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,32 +23,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF4D857D-869F-4EED-A51F-F82F1E31DC7B"
+            uuid = "B4AB0FE9-A9AB-4E18-87E2-5E62AAF68EFB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
+            filePath = "../../../gpu/gl_quad_renderer.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "HedEdgeDetectionCalculator::GlSetup(cc)"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "QuadRenderer::GlRender(frame_width, frame_height, view_width, view_height, scale_mode, rotation, flip_horizontal, flip_vertical, flip_texture)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C2304CED-F8DA-470C-BE74-FFC67C9F3A03"
+            uuid = "B8422FD9-FBB2-4F07-BD6D-409D71936954"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../calculators/custom/hed_edge_detection_calculator.cc"
+            filePath = "../../../gpu/gl_quad_renderer.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "HedEdgeDetectionCalculator::tensorToOverlay(input_tensors, image_mat)"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "QuadRenderer::GlRender(frame_width, frame_height, view_width, view_height, scale_mode, rotation, flip_horizontal, flip_vertical, flip_texture)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
