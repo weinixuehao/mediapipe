@@ -10,3 +10,4 @@ bazel-mediapipe
 cache/
 local_cache/
 .vscode
+ mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj
