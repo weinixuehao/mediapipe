@@ -50,25 +50,9 @@ objc_library(
     ],
     data = [
         "Base.lproj/LaunchScreen.storyboard",
-        "Base.lproj/Main.storyboard",
-        "//mediapipe/graphs/hed_edge_detection:mobile_gpu_binary_graph",
-        "//mediapipe/models:hed_graph.tflite",
-    ],
-    sdk_frameworks = [
-        "AVFoundation",
-        "CoreGraphics",
-        "CoreMedia",
-        "UIKit",
+        "Base.lproj/Main.storyboard"
     ],
     deps = [
-        "//mediapipe/objc:mediapipe_framework_ios",
-        "//mediapipe/objc:mediapipe_input_sources_ios",
-        "//mediapipe/objc:mediapipe_layer_renderer",
-    ] + select({
-        "//mediapipe:ios_i386": [],
-        "//mediapipe:ios_x86_64": [],
-        "//conditions:default": [
-            "//mediapipe/graphs/hed_edge_detection:mobile_calculators",
-        ],
-    }),
+        "//mediapipe/examples/ios/frameworks:HedEdgeDetectionLibrary"
+    ]
 )

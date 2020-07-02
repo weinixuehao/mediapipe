@@ -1,12 +1,21 @@
 MIN_IOS_VERSION = "10.0"
 
-load("@build_bazel_rules_apple//apple:ios.bzl", "ios_static_framework")
+load("@build_bazel_rules_apple//apple:ios.bzl", "ios_framework")
 
 objc_library(
-    name="HedEdgeDetectionLibrary",
+    name = "HedEdgeDetectionLibrary",
+    visibility = ["//visibility:public"],
+    srcs = ["EdgeDetectionApi.mm"],
+    hdrs = ["EdgeDetectionApi.h"],
     data = [
         "//mediapipe/graphs/hed_edge_detection:mobile_gpu_binary_graph",
         "//mediapipe/models:hed_graph.tflite",
+    ],
+    sdk_frameworks = [
+        "AVFoundation",
+        "CoreGraphics",
+        "CoreMedia",
+        "UIKit",
     ],
     deps = [
         "//mediapipe/objc:mediapipe_framework_ios",
@@ -21,21 +30,17 @@ objc_library(
     }),
 )
 
-# bazel build --config=ios_fat mediapipe/examples/ios/frameworks:HedEdgeDetection_Framework
-ios_static_framework(
+# bazel build --config=ios_fat --copt=-fembed-bitcode mediapipe/examples/ios/frameworks:HedEdgeDetection_Framework --linkopt="-s"
+ios_framework(
     name = "HedEdgeDetection_Framework",
     # If `hdrs` isn't set Headers and Modules folders won't get generated
-    hdrs = [
-        "mediapipe/objc/MPPCameraInputSource.h",
-        # "//mediapipe/objc:MPPGraph.h",
-        # "//mediapipe/objc:MPPLayerRenderer.h",
-        # "//mediapipe/objc:MPPInputSource.h",
-    ],
-    includes=".",
+    hdrs = ["EdgeDetectionApi.h"],
     families = [
         "iphone",
         "ipad",
     ],
+    infoplists = ["info.plist"],
+    bundle_id = "com.ctsmed.edgedetection",
     minimum_os_version = MIN_IOS_VERSION,
     deps = [
         "@ios_opencv//:OpencvFramework",
