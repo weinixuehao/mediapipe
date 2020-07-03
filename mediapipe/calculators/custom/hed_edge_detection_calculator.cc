@@ -225,7 +225,7 @@ namespace mediapipe
 
     ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
     {
-        int64 t0 = cv::getTickCount();
+        // int64 t0 = cv::getTickCount();
         auto &hed_tensor = input_tensors[0];
         float *hed_buf = hed_tensor.data.f;
         cv::Mat hed_img(256, 256, CV_32FC1, hed_buf);
@@ -235,7 +235,6 @@ namespace mediapipe
         if (find_rect)
         {
             cv::Mat *img = image_mat.get();
-            float scale = width_ / (float)height_;
             float ratio_y = height_ / 256.0;
             float ratio_x = width_ / 256.0;
             std::vector<cv::Point> real_points(4);
@@ -246,8 +245,8 @@ namespace mediapipe
             }
             cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
         }
-        int64 t1 = cv::getTickCount();
-        double secs = (t1 - t0) / cv::getTickFrequency();
+        // int64 t1 = cv::getTickCount();
+        // double secs = (t1 - t0) / cv::getTickFrequency();
         // __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
         return ::mediapipe::OkStatus();
     }
