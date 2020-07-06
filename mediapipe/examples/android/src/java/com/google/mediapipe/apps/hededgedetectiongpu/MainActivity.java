@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onPause() {
     super.onPause();
+    previewDisplayView.setVisibility(View.GONE);
     converter.close();
   }
 
