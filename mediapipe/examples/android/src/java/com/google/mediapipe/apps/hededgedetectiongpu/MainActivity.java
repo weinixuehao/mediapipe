@@ -16,26 +16,33 @@ package com.google.mediapipe.apps.hededgedetectiongpu;
 
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.util.Size;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.google.mediapipe.apps.hededgedetectiongpu.R;
 import com.google.mediapipe.components.CameraHelper;
-import com.google.mediapipe.components.CameraXPreviewHelper;
+import com.google.mediapipe.components.CameraXMultipleUseCaseHelper;
 import com.google.mediapipe.components.ExternalTextureConverter;
 import com.google.mediapipe.components.FrameProcessor;
 import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
+import com.google.mediapipe.framework.Packet;
+import com.google.mediapipe.framework.PacketCallback;
 import com.google.mediapipe.glutil.EglManager;
 
+import java.io.File;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.ImageCapture;
 
 /** Bare-bones main activity. */
 public class MainActivity extends AppCompatActivity {
-
+  private static final String TAG = MainActivity.class.getSimpleName();
   private static final String BINARY_GRAPH_NAME = "hed_edge_detection.binarypb";
   private static final String INPUT_VIDEO_STREAM_NAME = "input_video";
   private static final String OUTPUT_VIDEO_STREAM_NAME = "output_video";
@@ -68,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
   private ExternalTextureConverter converter;
 
   // Handles camera access via the {@link CameraX} Jetpack support library.
-  private CameraXPreviewHelper cameraHelper;
+  private CameraXMultipleUseCaseHelper cameraHelper;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +98,35 @@ public class MainActivity extends AppCompatActivity {
             INPUT_VIDEO_STREAM_NAME,
             OUTPUT_VIDEO_STREAM_NAME);
     processor.getVideoSurfaceOutput().setFlipY(FLIP_FRAMES_VERTICALLY);
+    processor.addPacketCallback(OUTPUT_VIDEO_STREAM_NAME, new PacketCallback() {
+      @Override
+      public void process(Packet packet) {
+        Log.i(TAG, "packet："+ packet.toString());
+      }
+    });
 
     PermissionHelper.checkAndRequestCameraPermissions(this);
+
+    Button takePicBtn = findViewById(R.id.take_pic);
+    takePicBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (cameraHelper != null) {
+          File saveImgFile = new File(MainActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+          cameraHelper.takePicture(MainActivity.this, saveImgFile, new ImageCapture.OnImageSavedListener() {
+            @Override
+            public void onImageSaved(File file) {
+              Log.i(TAG, "Path=>"+file.getPath() + " thread=>"+Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onError(ImageCapture.ImageCaptureError imageCaptureError, String s, Throwable throwable) {
+              Log.i(TAG, "take picture failed");
+            }
+          });
+        }
+      }
+    });
   }
 
   @Override
@@ -121,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startCamera() {
-    cameraHelper = new CameraXPreviewHelper();
+    cameraHelper = new CameraXMultipleUseCaseHelper();
     cameraHelper.setOnCameraStartedListener(
         surfaceTexture -> {
           previewFrameTexture = surfaceTexture;

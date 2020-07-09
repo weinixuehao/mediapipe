@@ -21,6 +21,7 @@ android_library(
         exclude = [
             "CameraHelper.java",
             "CameraXPreviewHelper.java",
+            "CameraXMultipleUseCaseHelper.java",
         ],
     ),
     visibility = ["//visibility:public"],
@@ -43,6 +44,7 @@ android_library(
     srcs = [
         "CameraHelper.java",
         "CameraXPreviewHelper.java",
+        "CameraXMultipleUseCaseHelper.java",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -50,6 +52,7 @@ android_library(
         "//third_party:androidx_legacy_support_v4",
         "//third_party:camera2",
         "//third_party:camerax_core",
+        "//third_party:androidx_core",
         "@maven//:androidx_concurrent_concurrent_futures",
         "@maven//:androidx_lifecycle_lifecycle_common",
         "@maven//:com_google_code_findbugs_jsr305",

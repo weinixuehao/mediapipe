@@ -50,6 +50,7 @@ android_library(
         "//third_party:opencv",
         "@maven//:androidx_concurrent_concurrent_futures",
         "@maven//:com_google_guava_guava",
+        "//third_party:camerax_core",
     ],
 )
 
@@ -59,6 +60,6 @@ android_binary(
     manifest_values = {"applicationId": "com.google.mediapipe.apps.hededgedetectiongpu"},
     multidex = "native",
     deps = [
-        ":mediapipe_lib",
+        ":mediapipe_lib"
     ],
 )
