@@ -11,3 +11,11 @@ cache/
 local_cache/
 .vscode
  mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj
+
+ #The following configuration files produced by Qt creator when import an c++ project.
+ mediapipe.cflags
+ mediapipe.config
+ mediapipe.creator
+ mediapipe.cxxflags
+ mediapipe.files
+ mediapipe.includes
