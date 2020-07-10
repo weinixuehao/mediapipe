@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             INPUT_VIDEO_STREAM_NAME,
             OUTPUT_VIDEO_STREAM_NAME);
     processor.getVideoSurfaceOutput().setFlipY(FLIP_FRAMES_VERTICALLY);
-    processor.addPacketCallback(OUTPUT_VIDEO_STREAM_NAME, new PacketCallback() {
+    processor.addPacketCallback("capture_img", new PacketCallback() {
       @Override
       public void process(Packet packet) {
         Log.i(TAG, "packet："+ packet.toString());

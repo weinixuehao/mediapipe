@@ -24,13 +24,9 @@
 #include <ctime>
 #include <string>
 #include "fm_ocr_scanner.h"
-// #include <android/log.h>
-
-//#if !defined(MEDIAPIPE_DISABLE_GL_COMPUTE)
-//typedef ::tflite::gpu::gl::GlBuffer GpuTensor;
-//#elif defined(MEDIAPIPE_IOS)
-//typedef id<MTLBuffer> GpuTensor;
-//#endif
+#ifdef defined(DEBUG)
+#include <android/log.h>
+#endif
 
 namespace mediapipe
 {
@@ -58,7 +54,7 @@ namespace mediapipe
         ::mediapipe::Status GlSetup(CalculatorContext *cc);
         ::mediapipe::Status GlRender(CalculatorContext *cc);
         ::mediapipe::Status renderToGpu(CalculatorContext *cc, uchar *overlay_image);
-        ::mediapipe::Status tensorToOverlay(const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat);
+        ::mediapipe::Status tensorToOverlay(CalculatorContext *cc, const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat);
 
     private:
         mediapipe::GlCalculatorHelper gpu_helper_;
@@ -67,6 +63,8 @@ namespace mediapipe
         GLuint program_ = 0;
         int width_ = 0;
         int height_ = 0;
+        float ratio_x = 0;
+        float ratio_y = 0;
     };
 
     ::mediapipe::Status HedEdgeDetectionCalculator::GetContract(CalculatorContract *cc)
@@ -74,6 +72,7 @@ namespace mediapipe
         cc->Inputs().Index(0).Set<std::vector<TfLiteTensor>>();
         cc->Inputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
         cc->Outputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
+        cc->Outputs().Tag("IMAGE_CAPTURE").Set<bool>();
         MP_RETURN_IF_ERROR(mediapipe::GlCalculatorHelper::UpdateContract(cc));
         return ::mediapipe::OkStatus();
     }
@@ -155,6 +154,8 @@ namespace mediapipe
             cc->Inputs().Tag("IMAGE_GPU").Get<mediapipe::GpuBuffer>();
         width_ = RoundUp(input_frame.width(), ImageFrame::kGlDefaultAlignmentBoundary);
         height_ = RoundUp(input_frame.height(), ImageFrame::kGlDefaultAlignmentBoundary);
+        ratio_y = height_ / 256.0;
+        ratio_x = width_ / 256.0;
         {
             glGenTextures(1, &image_mat_tex_);
             glBindTexture(GL_TEXTURE_2D, image_mat_tex_);
@@ -223,20 +224,21 @@ namespace mediapipe
         return ::mediapipe::OkStatus();
     }
 
-    ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
+    ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(CalculatorContext *cc, const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
     {
-        // int64 t0 = cv::getTickCount();
+#ifdef defined(DEBUG)
+        int64 t0 = cv::getTickCount();
+#endif
         auto &hed_tensor = input_tensors[0];
         float *hed_buf = hed_tensor.data.f;
         cv::Mat hed_img(256, 256, CV_32FC1, hed_buf);
         auto tuple = ProcessEdgeImage(hed_img, hed_img, true, false);
         auto find_rect = std::get<0>(tuple);
         auto cv_points = std::get<1>(tuple);
+        static int count = 0;
         if (find_rect)
         {
             cv::Mat *img = image_mat.get();
-            float ratio_y = height_ / 256.0;
-            float ratio_x = width_ / 256.0;
             std::vector<cv::Point> real_points(4);
             for (int i = 0, len = cv_points.size(); i < len; i++)
             {
@@ -244,10 +246,19 @@ namespace mediapipe
                 real_points[i] = real_point;
             }
             cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
+            if (count++ > 7) { 
+                std::unique_ptr<bool> result = absl::make_unique<bool>(true);
+                cc->Outputs().Tag("IMAGE_CAPTURE").Add(result.release(), cc->InputTimestamp());
+                count = 0;
+            }
+        } else {
+            count = 0;
         }
-        // int64 t1 = cv::getTickCount();
-        // double secs = (t1 - t0) / cv::getTickFrequency();
-        // __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
+#ifdef defined(DEBUG)
+        int64 t1 = cv::getTickCount();
+        double secs = (t1 - t0) / cv::getTickFrequency();
+        __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
+#endif 
         return ::mediapipe::OkStatus();
     }
 
@@ -318,7 +329,7 @@ namespace mediapipe
             image_mat = absl::make_unique<cv::Mat>(height_, width_, CV_8UC3);
             memset(image_mat->data, kAnnotationBackgroundColor,
                    height_ * width_ * image_mat->elemSize());
-            tensorToOverlay(input_tensors, image_mat);
+            tensorToOverlay(cc, input_tensors, image_mat);
             renderToGpu(cc, image_mat->data);
             return ::mediapipe::OkStatus();
         }));
