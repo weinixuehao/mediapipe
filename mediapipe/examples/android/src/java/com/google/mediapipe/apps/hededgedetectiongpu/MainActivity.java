@@ -33,6 +33,7 @@ import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.Packet;
 import com.google.mediapipe.framework.PacketCallback;
+import com.google.mediapipe.framework.TfliteInference;
 import com.google.mediapipe.glutil.EglManager;
 
 import java.io.File;
@@ -78,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
   private CameraXMultipleUseCaseHelper cameraHelper;
 
   @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    TfliteInference.uninit();
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -89,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     // binary graphs.
     AndroidAssetUtil.initializeNativeAssetManager(this);
 
+    TfliteInference.init("mediapipe/models/hed_graph.tflite");
     eglManager = new EglManager(null);
     processor =
         new FrameProcessor(

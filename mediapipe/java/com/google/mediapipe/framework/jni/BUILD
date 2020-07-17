@@ -40,6 +40,7 @@ cc_library(
         "//mediapipe:android": [
             "android_asset_util_jni.cc",
             "android_packet_creator_jni.cc",
+            "tflite_inference_jni.cpp"
         ],
     }) + select({
         "//conditions:default": [
@@ -64,6 +65,7 @@ cc_library(
         "//mediapipe:android": [
             "android_asset_util_jni.h",
             "android_packet_creator_jni.h",
+            "tflite_inference_jni.h"
         ],
     }) + select({
         "//conditions:default": [
@@ -106,6 +108,7 @@ cc_library(
         "//mediapipe/framework/port:threadpool",
         "//mediapipe/framework/port:singleton",
         "//mediapipe/framework/port:status",
+        "//mediapipe/inference:tflite_inference_lib",
     ] + select({
         "//conditions:default": [
             "//mediapipe/framework/port:file_helpers",

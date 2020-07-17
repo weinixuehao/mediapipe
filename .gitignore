@@ -20,4 +20,5 @@ mediapipe.cxxflags
 mediapipe.files
 mediapipe.includes
 mediapipe.creator.user
+mediapipe.includes.autosave
 
