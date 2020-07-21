@@ -14,6 +14,9 @@
 
 package com.google.mediapipe.apps.hededgedetectiongpu;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,10 +36,11 @@ import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.Packet;
 import com.google.mediapipe.framework.PacketCallback;
-import com.google.mediapipe.framework.TfliteInference;
+import com.google.mediapipe.framework.HedEdgeDetection;
 import com.google.mediapipe.glutil.EglManager;
 
 import java.io.File;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.ImageCapture;
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    TfliteInference.uninit();
+    HedEdgeDetection.uninit();
   }
 
   @Override
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     // binary graphs.
     AndroidAssetUtil.initializeNativeAssetManager(this);
 
-    TfliteInference.init("mediapipe/models/hed_graph.tflite");
+    HedEdgeDetection.init("mediapipe/models/hed_graph.tflite");
     eglManager = new EglManager(null);
     processor =
         new FrameProcessor(
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     processor.addPacketCallback("capture_img", new PacketCallback() {
       @Override
       public void process(Packet packet) {
-        Log.i(TAG, "packet："+ packet.toString());
+        takePic();
       }
     });
 
@@ -119,22 +123,30 @@ public class MainActivity extends AppCompatActivity {
     takePicBtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (cameraHelper != null) {
-          File saveImgFile = new File(MainActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
-          cameraHelper.takePicture(MainActivity.this, saveImgFile, new ImageCapture.OnImageSavedListener() {
-            @Override
-            public void onImageSaved(File file) {
-              Log.i(TAG, "Path=>"+file.getPath() + " thread=>"+Thread.currentThread().getName());
-            }
-
-            @Override
-            public void onError(ImageCapture.ImageCaptureError imageCaptureError, String s, Throwable throwable) {
-              Log.i(TAG, "take picture failed");
-            }
-          });
-        }
+        takePic();
       }
     });
+  }
+
+  private void takePic() {
+    if (cameraHelper != null) {
+      File saveImgFile = new File(MainActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+      cameraHelper.takePicture(MainActivity.this, saveImgFile, new ImageCapture.OnImageSavedListener() {
+        @Override
+        public void onImageSaved(File file) {
+          Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+          List<PointF> points = HedEdgeDetection.run(bitmap);
+          bitmap.recycle();
+          Log.i(TAG, "points=>"+points.size() + " thread=>"+Thread.currentThread().getName());
+
+        }
+
+        @Override
+        public void onError(ImageCapture.ImageCaptureError imageCaptureError, String s, Throwable throwable) {
+          Log.i(TAG, "take picture failed");
+        }
+      });
+    }
   }
 
   @Override

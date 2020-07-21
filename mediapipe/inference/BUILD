@@ -1,10 +1,10 @@
 cc_library(
-    name = "tflite_inference_lib",
+    name = "hed_edge_detection",
     srcs = [
-        "tflite_inference.cpp"
+        "hed_edge_detection.cpp"
     ],
     hdrs = [
-        "tflite_inference.h"
+        "hed_edge_detection.h"
     ],
     copts = select({
         "//mediapipe:ios": [
@@ -17,11 +17,13 @@ cc_library(
     deps = [
         "@org_tensorflow//tensorflow/lite:framework",
         "@org_tensorflow//tensorflow/lite/kernels:builtin_ops",
+        "//third_party:opencv",
         "//third_party:glog",
         "//mediapipe/framework/port:status",
         "//mediapipe/framework/port:statusor",
         "//mediapipe/framework/port:ret_check",
         "//mediapipe/util:resource_util",
+        "//mediapipe/calculators/custom:fm_ocr_scanner"
     ] + select({
         "//mediapipe:ios": [],
         "//conditions:default": [

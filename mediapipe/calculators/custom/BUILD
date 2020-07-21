@@ -1,11 +1,7 @@
 cc_library(
     name = "hed_edge_detection_calculator",
     srcs = [
-        "fm_ocr_scanner.cc",
         "hed_edge_detection_calculator.cc",
-    ],
-    hdrs = [
-        "fm_ocr_scanner.h",
     ],
     copts = select({
         "//mediapipe:ios": [
@@ -17,12 +13,12 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@org_tensorflow//tensorflow/lite:framework",
-        "//mediapipe/framework/port:opencv_core",
         "//mediapipe/framework/port:opencv_imgproc",
         "//mediapipe/gpu:gl_calculator_helper",
         "//mediapipe/gpu:gl_simple_calculator",
         "//mediapipe/gpu:gl_simple_shaders",
         "//mediapipe/gpu:shader_util",
+        "fm_ocr_scanner"
     ] + select({
         "//mediapipe:ios": [],
         "//conditions:default": [
@@ -30,4 +26,13 @@ cc_library(
         ],
     }),
     alwayslink = 1,
+)
+
+cc_library(
+    visibility = ["//visibility:public"],
+    name = "fm_ocr_scanner",
+    srcs = ["fm_ocr_scanner.cc"],
+    hdrs = ["fm_ocr_scanner.h"],
+    deps = ["//mediapipe/framework/port:opencv_core"],
+    alwayslink = 1
 )
