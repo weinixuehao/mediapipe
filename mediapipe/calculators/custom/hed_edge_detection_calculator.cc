@@ -65,6 +65,7 @@ namespace mediapipe
         int height_ = 0;
         float ratio_x = 0;
         float ratio_y = 0;
+        int contour_status = 0;
     };
 
     ::mediapipe::Status HedEdgeDetectionCalculator::GetContract(CalculatorContract *cc)
@@ -72,7 +73,7 @@ namespace mediapipe
         cc->Inputs().Index(0).Set<std::vector<TfLiteTensor>>();
         cc->Inputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
         cc->Outputs().Tag("IMAGE_GPU").Set<mediapipe::GpuBuffer>();
-        cc->Outputs().Tag("IMAGE_CAPTURE").Set<bool>();
+        cc->Outputs().Tag("CONTOUR_STATUS").Set<int>();
         MP_RETURN_IF_ERROR(mediapipe::GlCalculatorHelper::UpdateContract(cc));
         return ::mediapipe::OkStatus();
     }
@@ -247,12 +248,24 @@ namespace mediapipe
             }
             cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
             if (count++ > 7) { 
-                std::unique_ptr<bool> result = absl::make_unique<bool>(true);
-                cc->Outputs().Tag("IMAGE_CAPTURE").Add(result.release(), cc->InputTimestamp());
+                this->contour_status = 2;
+                std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
+                cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
                 count = 0;
+            } else {
+                if (this->contour_status != 1) {
+                    this->contour_status = 1;
+                    std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
+                    cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
+                }
             }
         } else {
-            count = 0;
+            if (this->contour_status != 0) {
+                this->contour_status = 0;
+                std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
+                cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
+                count = 0;
+            }
         }
 #if defined(DEBUG)
         int64 t1 = cv::getTickCount();

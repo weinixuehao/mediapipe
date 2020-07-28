@@ -37,6 +37,7 @@ import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.Packet;
 import com.google.mediapipe.framework.PacketCallback;
 import com.google.mediapipe.framework.HedEdgeDetection;
+import com.google.mediapipe.framework.PacketGetter;
 import com.google.mediapipe.glutil.EglManager;
 
 import java.io.File;
@@ -113,7 +114,11 @@ public class MainActivity extends AppCompatActivity {
     processor.addPacketCallback("capture_img", new PacketCallback() {
       @Override
       public void process(Packet packet) {
-        takePic();
+        int contourStatus = PacketGetter.getInt32(packet);
+        if (contourStatus == 2) {
+          takePic();
+        }
+        Log.w(TAG, "contourStatus=>"+contourStatus);
       }
     });
 

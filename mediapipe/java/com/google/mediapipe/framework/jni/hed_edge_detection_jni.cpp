@@ -51,7 +51,7 @@ JNIEXPORT void JNICALL TFLITE_INFERENCE_METHOD(init)(JNIEnv* env, jclass clz, js
     env->ReleaseStringUTFChars(_model_path, utf);
 }
 
-JNIEXPORT jboolean JNICALL TFLITE_INFERENCE_METHOD(unit)(JNIEnv* env, jclass clz){
+JNIEXPORT void JNICALL TFLITE_INFERENCE_METHOD(uninit)(JNIEnv* env, jclass clz){
     delete pInference;
     pInference = nullptr;
 }

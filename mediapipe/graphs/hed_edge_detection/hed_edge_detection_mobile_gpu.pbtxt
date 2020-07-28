@@ -73,5 +73,5 @@ node {
   input_stream: "edge_map"
   input_stream: "IMAGE_GPU:throttled_input_video"
   output_stream: "IMAGE_GPU:output_video"
-  output_stream: "IMAGE_CAPTURE:capture_img"
+  output_stream: "CONTOUR_STATUS:capture_img"
 }
