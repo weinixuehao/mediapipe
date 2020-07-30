@@ -239,12 +239,22 @@ public class ExternalTextureConverter implements TextureFrameProducer {
       destinationHeight = height;
     }
 
+    private boolean alreadyAttachGLContext = false;
     public void setSurfaceTextureAndAttachToGLContext(
         SurfaceTexture texture, int width, int height) {
       setSurfaceTexture(texture, width, height);
       int[] textures = new int[1];
       GLES20.glGenTextures(1, textures, 0);
+      detachToGlContextIfAttached();
       surfaceTexture.attachToGLContext(textures[0]);
+      alreadyAttachGLContext = true;
+    }
+
+    //This be added by Tom.Chen as surfaceChanged will be called multiple time.
+    public void detachToGlContextIfAttached() {
+      if (!alreadyAttachGLContext) return;
+      surfaceTexture.detachFromGLContext();
+      alreadyAttachGLContext = false;
     }
 
     public void setConsumer(TextureFrameConsumer consumer) {
