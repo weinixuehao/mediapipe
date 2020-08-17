@@ -41,22 +41,39 @@
   IBOutlet UILabel* _noCameraLabel;
 //  /// Display the camera preview frames.
   IBOutlet UIView* _liveView;
-//  /// Render frames in a layer.
+    
+  __unsafe_unretained IBOutlet UIButton *takingPicBtn;
+    //  /// Render frames in a layer.
 //  MPPLayerRenderer* _renderer;
 //
 //  /// Process camera frames on this queue.
 //  dispatch_queue_t _videoQueue;
     EdgeDetectionApi *_edgeDetectionApi;
+    __unsafe_unretained IBOutlet UIButton *modeBtn;
+}
+
+- (IBAction)takingPicEvent:(id)sender {
+#ifdef DEBUG
+    NSLog(@"taking picture event!");
+#endif
+}
+
+- (IBAction)autoTakePicEvent:(id)sender {
+    #ifdef DEBUG
+        NSLog(@"Auto take picture event!");
+    #endif
+    
 }
 
 - (void)viewDidLoad {
-    NSLog(@"viewDidLoad");
     _edgeDetectionApi = [EdgeDetectionApi alloc];
     [_edgeDetectionApi initWithLiveView:_liveView];
+    _edgeDetectionApi.detectStatusBlock = ^(int status) {
+        NSLog(@"status=%d", status);
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"viewWillAppear");
     [super viewWillAppear:animated];
     [_edgeDetectionApi startDetection];
 }

@@ -14,13 +14,15 @@ static NSString* const kGraphName = @"mobile_gpu";
 
 static const char* kInputStream = "input_video";
 static const char* kOutputStream = "output_video";
+static const char* CAPTURE_IMG = "capture_img";
 static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
-@interface EdgeDetectionApi () <MPPGraphDelegate, MPPInputSourceDelegate>
+@interface EdgeDetectionApi () <MPPGraphDelegate, MPPInputSourceDelegate, AVCapturePhotoCaptureDelegate>
 
 // The MediaPipe graph currently in use. Initialized in viewDidLoad, started in viewWillAppear: and
 // sent video frames on _videoQueue.
 @property(nonatomic) MPPGraph* mediapipeGraph;
+@property(nonatomic, assign) BOOL takingPic;
 
 @end
 
@@ -85,6 +87,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
   // Create MediaPipe graph with mediapipe::CalculatorGraphConfig proto object.
   MPPGraph* newGraph = [[MPPGraph alloc] initWithGraphConfig:config];
   [newGraph addFrameOutputStream:kOutputStream outputPacketType:MPPPacketTypePixelBuffer];
+  [newGraph addFrameOutputStream:CAPTURE_IMG outputPacketType:MPPPacketTypeRaw];
   return newGraph;
 }
 
@@ -126,6 +129,45 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
       CVPixelBufferRelease(pixelBuffer);
     });
   }
+}
+
+- (void)mediapipeGraph:(MPPGraph *)graph didOutputPacket:(const mediapipe::Packet &)packet fromStream:(const std::string &)streamName {
+    if (streamName == CAPTURE_IMG && self.detectStatusBlock && self.autoTakePic) {
+        if (packet.IsEmpty()) {
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!self.takingPic) {
+                auto &ret = packet.Get<int>();
+                self.detectStatusBlock(ret);
+                
+                if (ret == 2) {
+                    self.takingPic = YES;
+                    [_cameraSource takePic:self];
+                }
+            }
+        });
+    }
+}
+
+- (void)takePic {
+    if (!self.takingPic && !self.autoTakePic) {
+        [_cameraSource takePic:self];
+    }
+}
+
+- (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhotoSampleBuffer:(CMSampleBufferRef)photoSampleBuffer previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(AVCaptureBracketedStillImageSettings *)bracketSettings error:(NSError *)error {
+    if (photoSampleBuffer) {
+        NSData *data = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+        UIImage *image = [UIImage imageWithData:data];
+    }
+    self.takingPic = NO;
+}
+
+- (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhoto:(AVCapturePhoto *)photo error:(NSError *)error  API_AVAILABLE(ios(11.0)){
+    NSData *imageData = [photo fileDataRepresentation];
+    UIImage *image = [UIImage imageWithData:imageData];
+    self.takingPic = NO;
 }
 
 #pragma mark - MPPInputSourceDelegate methods

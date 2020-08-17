@@ -24,9 +24,6 @@
 #include <ctime>
 #include <string>
 #include "fm_ocr_scanner.h"
-#if defined(DEBUG)
-#include <android/log.h>
-#endif
 
 namespace mediapipe
 {
@@ -227,9 +224,6 @@ namespace mediapipe
 
     ::mediapipe::Status HedEdgeDetectionCalculator::tensorToOverlay(CalculatorContext *cc, const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat)
     {
-#if defined(DEBUG)
-        int64 t0 = cv::getTickCount();
-#endif
         auto &hed_tensor = input_tensors[0];
         float *hed_buf = hed_tensor.data.f;
         cv::Mat hed_img(256, 256, CV_32FC1, hed_buf);
@@ -267,11 +261,6 @@ namespace mediapipe
                 count = 0;
             }
         }
-#if defined(DEBUG)
-        int64 t1 = cv::getTickCount();
-        double secs = (t1 - t0) / cv::getTickFrequency();
-        __android_log_print(ANDROID_LOG_WARN, "jni", "find_rect=%s spent time=%f", find_rect ? "true" : "false", secs);
-#endif 
         return ::mediapipe::OkStatus();
     }
 

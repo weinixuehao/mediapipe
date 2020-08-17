@@ -24,6 +24,7 @@
   AVCaptureSession* _session;
   AVCaptureDeviceInput* _videoDeviceInput;
   AVCaptureVideoDataOutput* _videoDataOutput;
+  AVCapturePhotoOutput * _photoOutput;
   AVCaptureDepthDataOutput* _depthDataOutput API_AVAILABLE(ios(11.0));
   AVCaptureDevice* _currentDevice;
 
@@ -231,6 +232,10 @@
     _videoDataOutput.videoSettings = @{(id)kCVPixelBufferPixelFormatTypeKey : @(_pixelFormatType)};
   }
 
+    if (!_photoOutput) {
+        _photoOutput = [[AVCapturePhotoOutput alloc] init];
+        [_session addOutput:_photoOutput];
+    }
   // Remove Old Depth Depth
   if (_depthDataOutput) {
     [_session removeOutput:_depthDataOutput];
@@ -338,4 +343,10 @@
   connection.videoOrientation = (AVCaptureVideoOrientation)[UIDevice currentDevice].orientation;
 }
 
+- (void)takePic:(id<AVCapturePhotoCaptureDelegate>)delegate {
+    if (_photoOutput) {
+        AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings new];
+        [_photoOutput capturePhotoWithSettings:photoSettings delegate:delegate];
+    }
+}
 @end

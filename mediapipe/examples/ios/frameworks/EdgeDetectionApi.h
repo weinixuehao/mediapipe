@@ -14,7 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startDetection;
 
+- (void)takePic;
+
 - (void)initWithLiveView:(UIView *) liveView;
+
+typedef void(^DetectStatusBlock)(int status);
+@property (atomic, copy) DetectStatusBlock detectStatusBlock;
+@property (atomic, assign) BOOL autoTakePic;
 
 @end
 

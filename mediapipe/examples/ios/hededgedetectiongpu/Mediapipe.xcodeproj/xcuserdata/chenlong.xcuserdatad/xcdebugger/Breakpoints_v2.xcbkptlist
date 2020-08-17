@@ -5,30 +5,34 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1D014356-08D1-48B8-AFCD-FADADFB8A59E"
-            shouldBeEnabled = "Yes"
+            uuid = "6940F797-21D3-4F32-8BD7-2A972876B54D"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            breakpointStackSelectionBehavior = "1"
-            scope = "1"
-            stopOnStyle = "0">
+            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "TfLiteInferenceCalculator::Process(cc)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4A5F820E-E144-4996-B7EC-41528691C139"
+            uuid = "730F0532-15A5-451A-94B8-484AE5BEB4ED"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../frameworks/EdgeDetectionApi.mm"
+            filePath = "../../../calculators/tflite/tflite_inference_calculator.cc"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "+loadGraphFromResource:"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
+            landmarkName = "TfLiteInferenceCalculator::Open(cc)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
