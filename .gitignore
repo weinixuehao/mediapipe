@@ -2,7 +2,8 @@ bazel-*
 mediapipe/MediaPipe.xcodeproj
 mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
 mediapipe/provisioning_profile.mobileprovision
-
+mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj/xcuserdata
+mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj/project.xcworkspace/xcuserdata
 
 .DS_Store
 .aswb/
