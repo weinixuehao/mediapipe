@@ -245,8 +245,7 @@ namespace mediapipe
             bool reliableRect = this->reliableRect(real_points);
             count = reliableRect ? ++count : count;
             cv::fillConvexPoly(*img, real_points, reliableRect ? cv::Scalar(0, 255, 0) : cv::Scalar(255, 0, 0));
-            printf("count=%d\n", count);
-            if (count > 20) {
+            if (count > 14) {
                 this->contour_status = 2;
                 std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
                 cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
