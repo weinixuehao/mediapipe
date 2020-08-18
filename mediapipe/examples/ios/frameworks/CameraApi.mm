@@ -22,7 +22,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 // The MediaPipe graph currently in use. Initialized in viewDidLoad, started in viewWillAppear: and
 // sent video frames on _videoQueue.
 @property(nonatomic) MPPGraph* mediapipeGraph;
-@property(nonatomic, assign) BOOL takingPic;
+@property(atomic, assign) BOOL takingPic;
 
 @end
 
@@ -182,8 +182,15 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 - (void)processVideoFrame:(CVPixelBufferRef)imageBuffer
                 timestamp:(CMTime)timestamp
                fromSource:(MPPInputSource*)source {
+    //当拍照的时候会导致，Using more buffers than expected! This is a debug-only warning, "
+    //"you can ignore it if your app works fine otherwise. 错误。这个错误会导致app崩溃.
+    if (self.takingPic) {
+        return;
+    }
   if (source != _cameraSource) {
+#ifdef DEBUG
     NSLog(@"Unknown source: %@", source);
+#endif
     return;
   }
   [self.mediapipeGraph sendPixelBuffer:imageBuffer
