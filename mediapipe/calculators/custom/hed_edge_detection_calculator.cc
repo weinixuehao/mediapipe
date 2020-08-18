@@ -24,6 +24,7 @@
 #include <ctime>
 #include <string>
 #include "fm_ocr_scanner.h"
+#include <cstdlib>
 
 namespace mediapipe
 {
@@ -52,6 +53,7 @@ namespace mediapipe
         ::mediapipe::Status GlRender(CalculatorContext *cc);
         ::mediapipe::Status renderToGpu(CalculatorContext *cc, uchar *overlay_image);
         ::mediapipe::Status tensorToOverlay(CalculatorContext *cc, const std::vector<TfLiteTensor> &input_tensors, std::unique_ptr<cv::Mat> &image_mat);
+        bool reliableRect(std::vector<cv::Point> &point);
 
     private:
         mediapipe::GlCalculatorHelper gpu_helper_;
@@ -240,8 +242,11 @@ namespace mediapipe
                 cv::Point real_point(cv_points[i].x * ratio_x, cv_points[i].y * ratio_y);
                 real_points[i] = real_point;
             }
-            cv::fillConvexPoly(*img, real_points, cv::Scalar(0, 255, 0));
-            if (count++ > 7) { 
+            bool reliableRect = this->reliableRect(real_points);
+            count = reliableRect ? ++count : count;
+            cv::fillConvexPoly(*img, real_points, reliableRect ? cv::Scalar(0, 255, 0) : cv::Scalar(255, 0, 0));
+            printf("count=%d\n", count);
+            if (count > 20) {
                 this->contour_status = 2;
                 std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
                 cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
@@ -254,14 +259,27 @@ namespace mediapipe
                 }
             }
         } else {
+            count = 0;
             if (this->contour_status != 0) {
                 this->contour_status = 0;
                 std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
                 cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
-                count = 0;
             }
         }
         return ::mediapipe::OkStatus();
+    }
+
+    bool HedEdgeDetectionCalculator::reliableRect(std::vector<cv::Point> &points) {
+        int topSide = points[1].x - points[0].x;
+        int bottomSide = points[2].x - points[3].x;
+        int leftSide = points[3].y - points[0].y;
+        int rightSide = points[2].y - points[1].y;
+        size_t perimeter = (width_ + height_) * 2;
+        float times = perimeter / (float)(topSide + rightSide + bottomSide + leftSide);
+        if (times > 2.0) {
+            return false;
+        }
+        return std::abs(topSide-bottomSide) < 40 && std::abs(leftSide - rightSide) < 40;
     }
 
     ::mediapipe::Status HedEdgeDetectionCalculator::renderToGpu(CalculatorContext *cc, uchar *overlay_image)

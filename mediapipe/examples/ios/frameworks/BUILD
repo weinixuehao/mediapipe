@@ -5,8 +5,8 @@ load("@build_bazel_rules_apple//apple:ios.bzl", "ios_framework")
 objc_library(
     name = "HedEdgeDetectionLibrary",
     visibility = ["//visibility:public"],
-    srcs = ["EdgeDetectionApi.mm", "HedEdgeDetectApi.mm", "MMOpenCVHelper.mm"],
-    hdrs = ["EdgeDetectionApi.h", "HedEdgeDetectApi.h", "MMOpenCVHelper.h"],
+    srcs = ["CameraApi.mm", "HedEdgeDetectApi.mm", "MMOpenCVHelper.mm", "UIImage+PictureOrientation.m"],
+    hdrs = ["CameraApi.h", "HedEdgeDetectApi.h", "MMOpenCVHelper.h", "UIImage+PictureOrientation.h"],
     data = [
         "//mediapipe/graphs/hed_edge_detection:mobile_gpu_binary_graph",
         "//mediapipe/models:hed_graph.tflite",
@@ -21,6 +21,7 @@ objc_library(
         "//mediapipe/objc:mediapipe_framework_ios",
         "//mediapipe/objc:mediapipe_input_sources_ios",
         "//mediapipe/objc:mediapipe_layer_renderer",
+        "//mediapipe/inference:hed_edge_detection",
     ] + select({
         "//mediapipe:ios_i386": [],
         "//mediapipe:ios_x86_64": [],
@@ -34,7 +35,7 @@ objc_library(
 ios_framework(
     name = "HedEdgeDetection_Framework",
     # If `hdrs` isn't set Headers and Modules folders won't get generated
-    hdrs = ["EdgeDetectionApi.h", "HedEdgeDetectApi.h"],
+    hdrs = ["CameraApi.h", "HedEdgeDetectApi.h"],
     families = [
         "iphone",
         "ipad",

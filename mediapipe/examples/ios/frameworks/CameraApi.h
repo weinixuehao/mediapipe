@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EdgeDetectionApi : NSObject
+@interface CameraApi : NSObject
 
 - (void)startDetection;
 
@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^DetectStatusBlock)(int status);
 @property (atomic, copy) DetectStatusBlock detectStatusBlock;
+typedef void(^TakePicBlock)(UIImage *pic);
+@property (atomic, copy) TakePicBlock takePicBlock;
 @property (atomic, assign) BOOL autoTakePic;
 
 @end

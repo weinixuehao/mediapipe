@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		AB43ED3324EA51AE007B928A /* HedEdgeDetectApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = AB43ED3224EA51AE007B928A /* HedEdgeDetectApi.mm */; };
-		ABE0313F24AB139400B2F4AD /* EdgeDetectionApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE0313D24AB139400B2F4AD /* EdgeDetectionApi.mm */; };
+		AB46BF3224EB72AA0022B759 /* hed_edge_detection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB46BF3024EB72A90022B759 /* hed_edge_detection.cpp */; };
+		AB46BF3624EB81520022B759 /* UIImage+PictureOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB46BF3424EB81520022B759 /* UIImage+PictureOrientation.m */; };
+		AB46BF3F24EBC0760022B759 /* fm_ocr_scanner.cc in Sources */ = {isa = PBXBuildFile; fileRef = AB46BF3C24EBC0760022B759 /* fm_ocr_scanner.cc */; };
+		AB46BF4024EBC0760022B759 /* hed_edge_detection_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = AB46BF3D24EBC0760022B759 /* hed_edge_detection_calculator.cc */; };
+		ABE0313F24AB139400B2F4AD /* CameraApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE0313D24AB139400B2F4AD /* CameraApi.mm */; };
 		ABE47D8924EA5AA0009E495C /* MMOpenCVHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABE47D8724EA5A9F009E495C /* MMOpenCVHelper.mm */; };
 		ABE47D8C24EA72A3009E495C /* tflite_inference_calculator.cc in Sources */ = {isa = PBXBuildFile; fileRef = ABE47D8B24EA72A3009E495C /* tflite_inference_calculator.cc */; };
 		D6D8279602D6EEB700000000 /* calculator_context_manager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 52690CE502D6EEB700000000 /* calculator_context_manager.cc */; };
@@ -530,8 +534,18 @@
 		52690CE5FF60B81B00000000 /* counter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = counter.h; path = mediapipe/framework/counter.h; sourceTree = "<group>"; };
 		AB43ED3124EA51AE007B928A /* HedEdgeDetectApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HedEdgeDetectApi.h; path = mediapipe/examples/ios/frameworks/HedEdgeDetectApi.h; sourceTree = "<group>"; };
 		AB43ED3224EA51AE007B928A /* HedEdgeDetectApi.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = HedEdgeDetectApi.mm; path = mediapipe/examples/ios/frameworks/HedEdgeDetectApi.mm; sourceTree = "<group>"; };
-		ABE0313C24AB139400B2F4AD /* EdgeDetectionApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgeDetectionApi.h; path = mediapipe/examples/ios/frameworks/EdgeDetectionApi.h; sourceTree = "<group>"; };
-		ABE0313D24AB139400B2F4AD /* EdgeDetectionApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EdgeDetectionApi.mm; path = mediapipe/examples/ios/frameworks/EdgeDetectionApi.mm; sourceTree = "<group>"; };
+		AB46BF2D24EB71C70022B759 /* BUILD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BUILD; path = mediapipe/calculators/tflite/BUILD; sourceTree = "<group>"; };
+		AB46BF2F24EB72A90022B759 /* BUILD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BUILD; path = mediapipe/inference/BUILD; sourceTree = "<group>"; };
+		AB46BF3024EB72A90022B759 /* hed_edge_detection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hed_edge_detection.cpp; path = mediapipe/inference/hed_edge_detection.cpp; sourceTree = "<group>"; };
+		AB46BF3124EB72AA0022B759 /* hed_edge_detection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hed_edge_detection.h; path = mediapipe/inference/hed_edge_detection.h; sourceTree = "<group>"; };
+		AB46BF3424EB81520022B759 /* UIImage+PictureOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+PictureOrientation.m"; path = "mediapipe/examples/ios/frameworks/UIImage+PictureOrientation.m"; sourceTree = "<group>"; };
+		AB46BF3524EB81520022B759 /* UIImage+PictureOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+PictureOrientation.h"; path = "mediapipe/examples/ios/frameworks/UIImage+PictureOrientation.h"; sourceTree = "<group>"; };
+		AB46BF3B24EBC0760022B759 /* fm_ocr_scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fm_ocr_scanner.h; path = mediapipe/calculators/custom/fm_ocr_scanner.h; sourceTree = "<group>"; };
+		AB46BF3C24EBC0760022B759 /* fm_ocr_scanner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fm_ocr_scanner.cc; path = mediapipe/calculators/custom/fm_ocr_scanner.cc; sourceTree = "<group>"; };
+		AB46BF3D24EBC0760022B759 /* hed_edge_detection_calculator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hed_edge_detection_calculator.cc; path = mediapipe/calculators/custom/hed_edge_detection_calculator.cc; sourceTree = "<group>"; };
+		AB46BF3E24EBC0760022B759 /* BUILD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BUILD; path = mediapipe/calculators/custom/BUILD; sourceTree = "<group>"; };
+		ABE0313C24AB139400B2F4AD /* CameraApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraApi.h; path = mediapipe/examples/ios/frameworks/CameraApi.h; sourceTree = "<group>"; };
+		ABE0313D24AB139400B2F4AD /* CameraApi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CameraApi.mm; path = mediapipe/examples/ios/frameworks/CameraApi.mm; sourceTree = "<group>"; };
 		ABE0313E24AB139400B2F4AD /* BUILD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BUILD; path = mediapipe/examples/ios/frameworks/BUILD; sourceTree = "<group>"; };
 		ABE47D8724EA5A9F009E495C /* MMOpenCVHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MMOpenCVHelper.mm; path = mediapipe/examples/ios/frameworks/MMOpenCVHelper.mm; sourceTree = "<group>"; };
 		ABE47D8824EA5AA0009E495C /* MMOpenCVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMOpenCVHelper.h; path = mediapipe/examples/ios/frameworks/MMOpenCVHelper.h; sourceTree = "<group>"; };
@@ -668,6 +682,7 @@
 		7897486027AC494E00000001 /* mediapipe */ = {
 			isa = PBXGroup;
 			children = (
+				AB46BF2E24EB728C0022B759 /* inference */,
 				52690CE54D9B999200000000 /* BUILD */,
 				78974860BBA037E000000000 /* calculators */,
 				78974860244E1A8100000001 /* examples */,
@@ -991,6 +1006,7 @@
 		78974860BBA037E000000000 /* calculators */ = {
 			isa = PBXGroup;
 			children = (
+				AB46BF3A24EBC0490022B759 /* custom */,
 				ABE47D8A24EA7271009E495C /* tflite */,
 				78974860C1A22A7800000000 /* internal */,
 			);
@@ -1130,14 +1146,37 @@
 			name = "HedEdgeDetectionApp-intermediates";
 			sourceTree = "<group>";
 		};
+		AB46BF2E24EB728C0022B759 /* inference */ = {
+			isa = PBXGroup;
+			children = (
+				AB46BF2F24EB72A90022B759 /* BUILD */,
+				AB46BF3024EB72A90022B759 /* hed_edge_detection.cpp */,
+				AB46BF3124EB72AA0022B759 /* hed_edge_detection.h */,
+			);
+			name = inference;
+			sourceTree = "<group>";
+		};
+		AB46BF3A24EBC0490022B759 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				AB46BF3E24EBC0760022B759 /* BUILD */,
+				AB46BF3C24EBC0760022B759 /* fm_ocr_scanner.cc */,
+				AB46BF3B24EBC0760022B759 /* fm_ocr_scanner.h */,
+				AB46BF3D24EBC0760022B759 /* hed_edge_detection_calculator.cc */,
+			);
+			name = custom;
+			sourceTree = "<group>";
+		};
 		ABE0313924AB12B400B2F4AD /* frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AB46BF3524EB81520022B759 /* UIImage+PictureOrientation.h */,
+				AB46BF3424EB81520022B759 /* UIImage+PictureOrientation.m */,
 				ABE47D8824EA5AA0009E495C /* MMOpenCVHelper.h */,
 				ABE47D8724EA5A9F009E495C /* MMOpenCVHelper.mm */,
 				ABE0313E24AB139400B2F4AD /* BUILD */,
-				ABE0313C24AB139400B2F4AD /* EdgeDetectionApi.h */,
-				ABE0313D24AB139400B2F4AD /* EdgeDetectionApi.mm */,
+				ABE0313C24AB139400B2F4AD /* CameraApi.h */,
+				ABE0313D24AB139400B2F4AD /* CameraApi.mm */,
 				AB43ED3124EA51AE007B928A /* HedEdgeDetectApi.h */,
 				AB43ED3224EA51AE007B928A /* HedEdgeDetectApi.mm */,
 			);
@@ -1147,6 +1186,7 @@
 		ABE47D8A24EA7271009E495C /* tflite */ = {
 			isa = PBXGroup;
 			children = (
+				AB46BF2D24EB71C70022B759 /* BUILD */,
 				ABE47D8B24EA72A3009E495C /* tflite_inference_calculator.cc */,
 			);
 			name = tflite;
@@ -1801,11 +1841,15 @@
 			files = (
 				ABE47D8924EA5AA0009E495C /* MMOpenCVHelper.mm in Sources */,
 				D6D82796CF0A4E7400000000 /* AppDelegate.m in Sources */,
+				AB46BF3F24EBC0760022B759 /* fm_ocr_scanner.cc in Sources */,
+				AB46BF3624EB81520022B759 /* UIImage+PictureOrientation.m in Sources */,
+				AB46BF3224EB72AA0022B759 /* hed_edge_detection.cpp in Sources */,
 				D6D82796B5FC3BC700000000 /* ViewController.mm in Sources */,
 				ABE47D8C24EA72A3009E495C /* tflite_inference_calculator.cc in Sources */,
+				AB46BF4024EBC0760022B759 /* hed_edge_detection_calculator.cc in Sources */,
 				D6D827962532B1A900000000 /* main.m in Sources */,
 				AB43ED3324EA51AE007B928A /* HedEdgeDetectApi.mm in Sources */,
-				ABE0313F24AB139400B2F4AD /* EdgeDetectionApi.mm in Sources */,
+				ABE0313F24AB139400B2F4AD /* CameraApi.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

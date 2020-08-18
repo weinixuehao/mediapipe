@@ -25,7 +25,16 @@ cc_library(
         "//mediapipe/util:resource_util",
         "//mediapipe/calculators/custom:fm_ocr_scanner"
     ] + select({
-        "//mediapipe:ios": [],
+        "//mediapipe:ios": [
+            "//mediapipe/gpu:MPPMetalHelper",
+            "//mediapipe/gpu:MPPMetalUtil",
+            "//mediapipe/gpu:gpu_buffer",
+            "//mediapipe/objc:mediapipe_framework_ios",
+            "@org_tensorflow//tensorflow/lite/delegates/gpu/common:shape",
+            "@org_tensorflow//tensorflow/lite/delegates/gpu/metal:buffer_convert",
+            "@org_tensorflow//tensorflow/lite/delegates/gpu:metal_delegate",
+            "@org_tensorflow//tensorflow/lite/delegates/gpu:metal_delegate_internal",
+        ],
         "//conditions:default": [
             "@org_tensorflow//tensorflow/lite/delegates/gpu:gl_delegate",
         ],

@@ -6,10 +6,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIImage.h>
+#include <opencv2/core/mat.hpp>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HedEdgeDetectApi : NSObject
+
+- (instancetype)initWithModelPath:(NSString *) modelPath;
+
+- (void)run:(UIImage *) image points:(std::vector<cv::Point> &) points;
 
 @end
 

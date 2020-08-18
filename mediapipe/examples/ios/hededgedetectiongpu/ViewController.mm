@@ -13,7 +13,9 @@
 // limitations under the License.
 
 #import "ViewController.h"
-#import "mediapipe/examples/ios/frameworks/EdgeDetectionApi.h"
+#import "mediapipe/examples/ios/frameworks/CameraApi.h"
+#import "mediapipe/examples/ios/frameworks/UIImage+PictureOrientation.h"
+#import "mediapipe/examples/ios/frameworks/HedEdgeDetectApi.h"
 
 //#import "mediapipe/objc/MPPGraph.h"
 //#import "mediapipe/objc/MPPCameraInputSource.h"
@@ -48,7 +50,8 @@
 //
 //  /// Process camera frames on this queue.
 //  dispatch_queue_t _videoQueue;
-    EdgeDetectionApi *_edgeDetectionApi;
+    CameraApi *_cameraApi;
+    HedEdgeDetectApi *_hedEdgeDetectApi;
     __unsafe_unretained IBOutlet UIButton *modeBtn;
 }
 
@@ -56,26 +59,34 @@
 #ifdef DEBUG
     NSLog(@"taking picture event!");
 #endif
+    [_cameraApi takePic];
 }
 
 - (IBAction)autoTakePicEvent:(id)sender {
     #ifdef DEBUG
         NSLog(@"Auto take picture event!");
     #endif
-    
+    _cameraApi.autoTakePic = true;
 }
 
 - (void)viewDidLoad {
-    _edgeDetectionApi = [EdgeDetectionApi alloc];
-    [_edgeDetectionApi initWithLiveView:_liveView];
-    _edgeDetectionApi.detectStatusBlock = ^(int status) {
+    _hedEdgeDetectApi = [[HedEdgeDetectApi alloc] initWithModelPath: @"mediapipe/models/hed_graph.tflite"];
+    _cameraApi = [CameraApi alloc];
+    [_cameraApi initWithLiveView:_liveView];
+    _cameraApi.detectStatusBlock = ^(int status) {
         NSLog(@"status=%d", status);
+    };
+    _cameraApi.takePicBlock = ^(UIImage * _Nonnull pic) {
+        UIImage *image = [pic normalizedImage];
+        std::vector<cv::Point> points;
+        [_hedEdgeDetectApi run: image points:points];
+//        NSLog(@"Taked an pic!");
     };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_edgeDetectionApi startDetection];
+    [_cameraApi startDetection];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

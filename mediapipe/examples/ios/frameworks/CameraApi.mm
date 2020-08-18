@@ -5,7 +5,7 @@
 //  Created by chenlong on 6/30/20.
 //
 
-#import "EdgeDetectionApi.h"
+#import "CameraApi.h"
 #import "mediapipe/objc/MPPGraph.h"
 #import "mediapipe/objc/MPPCameraInputSource.h"
 #import "mediapipe/objc/MPPLayerRenderer.h"
@@ -17,7 +17,7 @@ static const char* kOutputStream = "output_video";
 static const char* CAPTURE_IMG = "capture_img";
 static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
-@interface EdgeDetectionApi () <MPPGraphDelegate, MPPInputSourceDelegate, AVCapturePhotoCaptureDelegate>
+@interface CameraApi () <MPPGraphDelegate, MPPInputSourceDelegate, AVCapturePhotoCaptureDelegate>
 
 // The MediaPipe graph currently in use. Initialized in viewDidLoad, started in viewWillAppear: and
 // sent video frames on _videoQueue.
@@ -26,7 +26,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
 @end
 
-@implementation EdgeDetectionApi {
+@implementation CameraApi {
     /// Handles camera access via AVCaptureSession library.
     MPPCameraInputSource* _cameraSource;
 
@@ -53,7 +53,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
     _cameraSource = [[MPPCameraInputSource alloc] init];
     [_cameraSource setDelegate:self queue:_videoQueue];
-    _cameraSource.sessionPreset = AVCaptureSessionPresetHigh;
+    _cameraSource.sessionPreset = AVCaptureSessionPresetPhoto;
     _cameraSource.cameraPosition = AVCaptureDevicePositionBack;
     // The frame's native format is rotated with respect to the portrait orientation.
     _cameraSource.orientation = AVCaptureVideoOrientationPortrait;
@@ -136,12 +136,11 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
         if (packet.IsEmpty()) {
             return;
         }
+        auto status = packet.Get<int>();
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.takingPic) {
-                auto &ret = packet.Get<int>();
-                self.detectStatusBlock(ret);
-                
-                if (ret == 2) {
+                self.detectStatusBlock(status);
+                if (status == 2) {
                     self.takingPic = YES;
                     [_cameraSource takePic:self];
                 }
@@ -152,6 +151,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 
 - (void)takePic {
     if (!self.takingPic && !self.autoTakePic) {
+        self.takingPic = YES;
         [_cameraSource takePic:self];
     }
 }
@@ -160,6 +160,9 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     if (photoSampleBuffer) {
         NSData *data = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
         UIImage *image = [UIImage imageWithData:data];
+        if (self.takePicBlock) {
+            self.takePicBlock(image);
+        }
     }
     self.takingPic = NO;
 }
@@ -167,6 +170,9 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 - (void)captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhoto:(AVCapturePhoto *)photo error:(NSError *)error  API_AVAILABLE(ios(11.0)){
     NSData *imageData = [photo fileDataRepresentation];
     UIImage *image = [UIImage imageWithData:imageData];
+    if (self.takePicBlock) {
+        self.takePicBlock(image);
+    }
     self.takingPic = NO;
 }
 

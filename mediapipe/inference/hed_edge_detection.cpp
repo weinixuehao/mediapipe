@@ -1,7 +1,21 @@
 #include "hed_edge_detection.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "mediapipe/util/resource_util.h"
+#ifdef __ANDROID__
 #include "tensorflow/lite/delegates/gpu/gl_delegate.h"
+#else
+#import <CoreVideo/CoreVideo.h>
+#import <Metal/Metal.h>
+#import <MetalKit/MetalKit.h>
+
+#import "mediapipe/gpu/MPPMetalHelper.h"
+#include "mediapipe/gpu/MPPMetalUtil.h"
+#include "mediapipe/gpu/gpu_buffer.h"
+#include "tensorflow/lite/delegates/gpu/common/shape.h"
+#include "tensorflow/lite/delegates/gpu/metal/buffer_convert.h"
+#include "tensorflow/lite/delegates/gpu/metal_delegate.h"
+#include "tensorflow/lite/delegates/gpu/metal_delegate_internal.h"
+#endif
 #include "mediapipe/framework/deps/status_macros.h"
 #include "mediapipe/framework/deps/ret_check.h"
 #include <opencv2/imgcodecs.hpp>
@@ -23,16 +37,24 @@ HedEdgeDetecion::HedEdgeDetecion(std::string &model_path){
     tflite::InterpreterBuilder(*model.get(), op_resolver)(&interpreter_);
     interpreter_->AllocateTensors();
 
-    TfLiteGpuDelegateOptions options = TfLiteGpuDelegateOptionsDefault();
-    options.compile_options.precision_loss_allowed = 1;
-    options.compile_options.preferred_gl_object_type =
-            TFLITE_GL_OBJECT_TYPE_FASTEST;
-    options.compile_options.dynamic_batch_enabled = 0;
-    options.compile_options.inline_parameters = 1;
-
-    if (!delegate_)
+    if (!delegate_) {
+#ifdef __ANDROID__
+        TfLiteGpuDelegateOptions options = TfLiteGpuDelegateOptionsDefault();
+        options.compile_options.precision_loss_allowed = 1;
+        options.compile_options.preferred_gl_object_type =
+                TFLITE_GL_OBJECT_TYPE_FASTEST;
+        options.compile_options.dynamic_batch_enabled = 0;
+        options.compile_options.inline_parameters = 1;
         delegate_ = TfLiteDelegatePtr(TfLiteGpuDelegateCreate(&options),
                                       &TfLiteGpuDelegateDelete);
+#else
+        TFLGpuDelegateOptions options;
+        options.allow_precision_loss = true;
+        options.wait_type = TFLGpuDelegateWaitType::TFLGpuDelegateWaitTypePassive;
+        delegate_ = TfLiteDelegatePtr(TFLGpuDelegateCreate(&options),
+                                      &TFLGpuDelegateDelete);
+#endif
+    }
     interpreter_->ModifyGraphWithDelegate(delegate_.get());
     return ::mediapipe::OkStatus();
 }
