@@ -4,17 +4,13 @@
 #ifdef __ANDROID__
 #include "tensorflow/lite/delegates/gpu/gl_delegate.h"
 #else
-#import <CoreVideo/CoreVideo.h>
-#import <Metal/Metal.h>
-#import <MetalKit/MetalKit.h>
-
-#import "mediapipe/gpu/MPPMetalHelper.h"
-#include "mediapipe/gpu/MPPMetalUtil.h"
-#include "mediapipe/gpu/gpu_buffer.h"
-#include "tensorflow/lite/delegates/gpu/common/shape.h"
-#include "tensorflow/lite/delegates/gpu/metal/buffer_convert.h"
+//#import <CoreVideo/CoreVideo.h>
+//#import <Metal/Metal.h>
+//#import <MetalKit/MetalKit.h>
+//#include "tensorflow/lite/delegates/gpu/common/shape.h"
+//#include "tensorflow/lite/delegates/gpu/metal/buffer_convert.h"
 #include "tensorflow/lite/delegates/gpu/metal_delegate.h"
-#include "tensorflow/lite/delegates/gpu/metal_delegate_internal.h"
+//#include "tensorflow/lite/delegates/gpu/metal_delegate_internal.h"
 #endif
 #include "mediapipe/framework/deps/status_macros.h"
 #include "mediapipe/framework/deps/ret_check.h"

@@ -31,9 +31,9 @@ objc_library(
     }),
 )
 
-# bazel build --config=ios_fat --copt=-fembed-bitcode mediapipe/examples/ios/frameworks:HedEdgeDetection_Framework --linkopt="-s"
+# bazel build --config=ios_fat --copt=-fembed-bitcode mediapipe/examples/ios/frameworks:HedEdgeDetect --linkopt="-s"
 ios_framework(
-    name = "HedEdgeDetection_Framework",
+    name = "HedEdgeDetect",
     # If `hdrs` isn't set Headers and Modules folders won't get generated
     hdrs = ["CameraApi.h", "HedEdgeDetectApi.h", "UIImage+PictureOrientation.h"],
     families = [
