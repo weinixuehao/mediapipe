@@ -35,7 +35,7 @@ objc_library(
 ios_framework(
     name = "HedEdgeDetection_Framework",
     # If `hdrs` isn't set Headers and Modules folders won't get generated
-    hdrs = ["CameraApi.h", "HedEdgeDetectApi.h"],
+    hdrs = ["CameraApi.h", "HedEdgeDetectApi.h", "UIImage+PictureOrientation.h"],
     families = [
         "iphone",
         "ipad",
