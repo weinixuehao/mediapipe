@@ -95,9 +95,6 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     [_cameraSource requestCameraAccessWithCompletionHandler:^void(BOOL granted) {
       if (granted) {
         [self startGraphAndCamera];
-        dispatch_async(dispatch_get_main_queue(), ^{
-//          [_noCameraLabel setHidden:YES];
-        });
       }
     }];
 }
@@ -205,7 +202,9 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     [self.mediapipeGraph cancel];
     // Ignore errors since we're cleaning up.
     [self.mediapipeGraph closeAllInputStreamsWithError:nil];
-    [self.mediapipeGraph waitUntilDoneWithError:nil];
+    dispatch_async(_videoQueue, ^{
+        [self.mediapipeGraph waitUntilDoneWithError:nil];
+    });
 }
 
 @end

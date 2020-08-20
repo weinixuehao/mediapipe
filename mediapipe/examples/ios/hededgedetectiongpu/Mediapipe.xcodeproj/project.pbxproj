@@ -532,6 +532,14 @@
 		52690CE5FCDAE5D200000000 /* validate_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = validate_name.h; path = mediapipe/framework/tool/validate_name.h; sourceTree = "<group>"; };
 		52690CE5FE6F27FD00000000 /* default_input_stream_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = default_input_stream_handler.h; path = mediapipe/framework/stream_handler/default_input_stream_handler.h; sourceTree = "<group>"; };
 		52690CE5FF60B81B00000000 /* counter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = counter.h; path = mediapipe/framework/counter.h; sourceTree = "<group>"; };
+		AB0793DB24EE6F6D00D767F7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mediapipe/examples/ios/facedetectiongpu/main.m; sourceTree = "<group>"; };
+		AB0793DC24EE6F6D00D767F7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mediapipe/examples/ios/facedetectiongpu/Info.plist; sourceTree = "<group>"; };
+		AB0793DD24EE6F6D00D767F7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = mediapipe/examples/ios/facedetectiongpu/AppDelegate.m; sourceTree = "<group>"; };
+		AB0793DE24EE6F6D00D767F7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = mediapipe/examples/ios/facedetectiongpu/AppDelegate.h; sourceTree = "<group>"; };
+		AB0793DF24EE6F6D00D767F7 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = mediapipe/examples/ios/facedetectiongpu/ViewController.h; sourceTree = "<group>"; };
+		AB0793E024EE6F6D00D767F7 /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViewController.mm; path = mediapipe/examples/ios/facedetectiongpu/ViewController.mm; sourceTree = "<group>"; };
+		AB0793E124EE6F6D00D767F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = mediapipe/examples/ios/facedetectiongpu/Assets.xcassets; sourceTree = "<group>"; };
+		AB0793E224EE6F6D00D767F7 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = mediapipe/examples/ios/facedetectiongpu/Base.lproj; sourceTree = "<group>"; };
 		AB43ED3124EA51AE007B928A /* HedEdgeDetectApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HedEdgeDetectApi.h; path = mediapipe/examples/ios/frameworks/HedEdgeDetectApi.h; sourceTree = "<group>"; };
 		AB43ED3224EA51AE007B928A /* HedEdgeDetectApi.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = HedEdgeDetectApi.mm; path = mediapipe/examples/ios/frameworks/HedEdgeDetectApi.mm; sourceTree = "<group>"; };
 		AB46BF2D24EB71C70022B759 /* BUILD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BUILD; path = mediapipe/calculators/tflite/BUILD; sourceTree = "<group>"; };
@@ -772,6 +780,14 @@
 		789748605A04F5F000000000 /* facedetectiongpu */ = {
 			isa = PBXGroup;
 			children = (
+				AB0793DE24EE6F6D00D767F7 /* AppDelegate.h */,
+				AB0793DD24EE6F6D00D767F7 /* AppDelegate.m */,
+				AB0793E124EE6F6D00D767F7 /* Assets.xcassets */,
+				AB0793E224EE6F6D00D767F7 /* Base.lproj */,
+				AB0793DC24EE6F6D00D767F7 /* Info.plist */,
+				AB0793DB24EE6F6D00D767F7 /* main.m */,
+				AB0793DF24EE6F6D00D767F7 /* ViewController.h */,
+				AB0793E024EE6F6D00D767F7 /* ViewController.mm */,
 				52690CE5D897060800000000 /* BUILD */,
 			);
 			name = facedetectiongpu;

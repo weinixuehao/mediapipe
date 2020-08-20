@@ -91,6 +91,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     NSLog(@"viewWillDisappear");
+    _cameraApi = nil; //Warning!!! This will trigger the dealloc method of the CameraApi to release resource. It is import !!
 }
 
 
