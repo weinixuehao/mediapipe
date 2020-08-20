@@ -44,7 +44,6 @@ ios_framework(
     bundle_id = "com.ctsmed.edgedetection",
     minimum_os_version = MIN_IOS_VERSION,
     deps = [
-        "@ios_opencv//:OpencvFramework",
         "HedEdgeDetectionLibrary"
     ]
 )

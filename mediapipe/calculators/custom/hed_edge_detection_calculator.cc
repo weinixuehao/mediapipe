@@ -278,7 +278,7 @@ namespace mediapipe
         if (times > 2.0) {
             return false;
         }
-        return std::abs(topSide-bottomSide) < 40 && std::abs(leftSide - rightSide) < 40;
+        return std::abs(topSide-bottomSide) < 80 && std::abs(leftSide - rightSide) < 80;
     }
 
     ::mediapipe::Status HedEdgeDetectionCalculator::renderToGpu(CalculatorContext *cc, uchar *overlay_image)
