@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fbO-gp-QEp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fbO-gp-QEp">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -73,6 +73,14 @@
                                     <action selector="autoTakePicEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="azh-pX-Bko"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIE-4x-Oa9">
+                                <rect key="frame" x="46" y="609" width="34" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="返回"/>
+                                <connections>
+                                    <action selector="backAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="30q-br-jcm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -80,13 +88,14 @@
                     <connections>
                         <outlet property="_liveView" destination="EfB-xq-knP" id="JQp-2n-q9q"/>
                         <outlet property="_noCameraLabel" destination="emf-N5-sEd" id="91G-3Z-cU3"/>
+                        <outlet property="backBtn" destination="BIE-4x-Oa9" id="24I-of-qFs"/>
                         <outlet property="modeBtn" destination="nhj-rC-2Sq" id="Mcl-6d-e7u"/>
                         <outlet property="takingPicBtn" destination="Myh-Ru-nRo" id="GAj-UB-ksz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-452" y="-28"/>
+            <point key="canvasLocation" x="-452" y="-28.335832083958024"/>
         </scene>
     </scenes>
 </document>

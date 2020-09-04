@@ -23,13 +23,14 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 // sent video frames on _videoQueue.
 @property(nonatomic) MPPGraph* mediapipeGraph;
 @property(atomic, assign) BOOL takingPic;
+@property(atomic, strong) NSLock *lock;
 
 @end
 
 @implementation CameraApi {
     /// Handles camera access via AVCaptureSession library.
     MPPCameraInputSource* _cameraSource;
-
+    CVPixelBufferRef currentPixelBufRef;
     /// Inform the user when camera is unavailable.
 //    IBOutlet UILabel* _noCameraLabel;
     /// Display the camera preview frames.
@@ -41,27 +42,32 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     dispatch_queue_t _videoQueue;
 }
 
-- (void)initWithLiveView:(UIView *) liveView {
-    _renderer = [[MPPLayerRenderer alloc] init];
-    _renderer.layer.frame = liveView.layer.bounds;
-    [liveView.layer addSublayer:_renderer.layer];
-    _renderer.frameScaleMode = MPPFrameScaleModeFillAndCrop;
-
-    dispatch_queue_attr_t qosAttribute = dispatch_queue_attr_make_with_qos_class(
-        DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, /*relative_priority=*/0);
-    _videoQueue = dispatch_queue_create(kVideoQueueLabel, qosAttribute);
-
-    _cameraSource = [[MPPCameraInputSource alloc] init];
-    [_cameraSource setDelegate:self queue:_videoQueue];
-    _cameraSource.sessionPreset = AVCaptureSessionPresetPhoto;
-    _cameraSource.cameraPosition = AVCaptureDevicePositionBack;
-    // The frame's native format is rotated with respect to the portrait orientation.
-    _cameraSource.orientation = AVCaptureVideoOrientationPortrait;
-
-    self.mediapipeGraph = [[self class] loadGraphFromResource:kGraphName];
-    self.mediapipeGraph.delegate = self;
-    // Set maxFramesInFlight to a small value to avoid memory contention for real-time processing.
-    self.mediapipeGraph.maxFramesInFlight = 2;
+- (instancetype)initWithLiveView:(UIView *) liveView {
+    self = [super init];
+    if (self) {
+        self.lock = [[NSLock alloc] init];
+        _renderer = [[MPPLayerRenderer alloc] init];
+        _renderer.layer.frame = liveView.layer.bounds;
+        [liveView.layer addSublayer:_renderer.layer];
+        _renderer.frameScaleMode = MPPFrameScaleModeFillAndCrop;
+        
+        dispatch_queue_attr_t qosAttribute = dispatch_queue_attr_make_with_qos_class(
+                                                                                     DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, /*relative_priority=*/0);
+        _videoQueue = dispatch_queue_create(kVideoQueueLabel, qosAttribute);
+        
+        _cameraSource = [[MPPCameraInputSource alloc] init];
+        [_cameraSource setDelegate:self queue:_videoQueue];
+        _cameraSource.sessionPreset = AVCaptureSessionPresetPhoto;
+        _cameraSource.cameraPosition = AVCaptureDevicePositionBack;
+        // The frame's native format is rotated with respect to the portrait orientation.
+        _cameraSource.orientation = AVCaptureVideoOrientationPortrait;
+        
+        self.mediapipeGraph = [[self class] loadGraphFromResource:kGraphName];
+        self.mediapipeGraph.delegate = self;
+        // Set maxFramesInFlight to a small value to avoid memory contention for real-time processing.
+        self.mediapipeGraph.maxFramesInFlight = 2;
+    }
+    return self;
 }
 
 #pragma mark - MediaPipe graph methods
@@ -120,10 +126,21 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
               fromStream:(const std::string&)streamName {
   if (streamName == kOutputStream) {
     // Display the captured image on the screen.
-    CVPixelBufferRetain(pixelBuffer);
+      
+      //这里需要加锁，确保在主线程处于比较忙碌状态，不触发CVPixelBufferRetain。因为主线程没有足够时间去消耗这些资源，从而造成内存溢出。
+      [self.lock lock];
+      if (currentPixelBufRef) {
+          [self.lock unlock];
+          return;
+      }
+      currentPixelBufRef = CVPixelBufferRetain(pixelBuffer);
+      [self.lock unlock];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [_renderer renderPixelBuffer:pixelBuffer];
-      CVPixelBufferRelease(pixelBuffer);
+        [self.lock lock];
+        [_renderer renderPixelBuffer:currentPixelBufRef];
+        CVPixelBufferRelease(currentPixelBufRef);
+        currentPixelBufRef = nil;
+        [self.lock unlock];
     });
   }
 }
@@ -184,13 +201,13 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     if (self.takingPic) {
         return;
     }
-  if (source != _cameraSource) {
+    if (source != _cameraSource) {
 #ifdef DEBUG
     NSLog(@"Unknown source: %@", source);
 #endif
-    return;
-  }
-  [self.mediapipeGraph sendPixelBuffer:imageBuffer
+      return;
+    }
+    [self.mediapipeGraph sendPixelBuffer:imageBuffer
                             intoStream:kInputStream
                             packetType:MPPPacketTypePixelBuffer];
 }
@@ -204,6 +221,12 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     [self.mediapipeGraph closeAllInputStreamsWithError:nil];
     dispatch_async(_videoQueue, ^{
         [self.mediapipeGraph waitUntilDoneWithError:nil];
+        if (currentPixelBufRef) {
+#ifdef DEBUG
+            NSLog(@"Clear the currentPixelBufRef as it not be used to display on the screen!");
+#endif
+            CVPixelBufferRelease(currentPixelBufRef);
+        }
     });
 }
 
