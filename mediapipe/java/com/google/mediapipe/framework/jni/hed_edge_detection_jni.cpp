@@ -43,20 +43,23 @@ void BitmapToMat2(JNIEnv *env, jobject &bitmap, cv::Mat &mat, jboolean needUnPre
     }
 }
 
-HedEdgeDetecion *pInference;
-JNIEXPORT void JNICALL TFLITE_INFERENCE_METHOD(init)(JNIEnv* env, jclass clz, jstring _model_path) {
+JNIEXPORT jlong JNICALL TFLITE_INFERENCE_METHOD(init)(JNIEnv* env, jclass clz, jstring _model_path) {
     const char* utf = env->GetStringUTFChars(_model_path, 0);
     std::string model_path(utf);
-    pInference = new HedEdgeDetecion(model_path);
+    HedEdgeDetecion *pInference = new HedEdgeDetecion(model_path);
     env->ReleaseStringUTFChars(_model_path, utf);
+    return (long)pInference;
 }
 
-JNIEXPORT void JNICALL TFLITE_INFERENCE_METHOD(uninit)(JNIEnv* env, jclass clz){
+JNIEXPORT void JNICALL TFLITE_INFERENCE_METHOD(uninit)(JNIEnv* env, jclass clz, jlong inference_address){
+    HedEdgeDetecion *pInference = (HedEdgeDetecion *) inference_address;
     delete pInference;
     pInference = nullptr;
 }
 
-JNIEXPORT jobject JNICALL TFLITE_INFERENCE_METHOD(run)(JNIEnv* env, jclass clz, jobject bitmap) {
+JNIEXPORT jobject JNICALL TFLITE_INFERENCE_METHOD(run)(JNIEnv* env, jclass clz, jobject bitmap, jlong inference_address) {
+    HedEdgeDetecion *pInference = (HedEdgeDetecion *) inference_address;
+    assert(pInference != nullptr);
     cv::Mat origImg;
     BitmapToMat2(env, bitmap, origImg, 0);
     std::vector<cv::Point> points;
