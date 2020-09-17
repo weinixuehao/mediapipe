@@ -71,7 +71,7 @@
     #ifdef DEBUG
         NSLog(@"Auto take picture event!");
     #endif
-    _cameraApi.autoTakePic = true;
+//    _cameraApi.autoTakePic = true;
 }
 
 - (void)viewDidLoad {

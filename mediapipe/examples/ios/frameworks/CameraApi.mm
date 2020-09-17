@@ -146,7 +146,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
 }
 
 - (void)mediapipeGraph:(MPPGraph *)graph didOutputPacket:(const mediapipe::Packet &)packet fromStream:(const std::string &)streamName {
-    if (streamName == CAPTURE_IMG && self.detectStatusBlock && self.autoTakePic) {
+    if (streamName == CAPTURE_IMG && self.detectStatusBlock) {
         if (packet.IsEmpty()) {
             return;
         }
@@ -154,17 +154,13 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.takingPic) {
                 self.detectStatusBlock(status);
-                if (status == 2) {
-                    self.takingPic = YES;
-                    [_cameraSource takePic:self];
-                }
             }
         });
     }
 }
 
 - (void)takePic {
-    if (!self.takingPic && !self.autoTakePic) {
+    if (!self.takingPic) {
         self.takingPic = YES;
         [_cameraSource takePic:self];
     }

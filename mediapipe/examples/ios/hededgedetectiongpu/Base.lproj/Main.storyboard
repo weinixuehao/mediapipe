@@ -65,16 +65,8 @@
                                     <action selector="takingPicEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y25-TH-YkZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhj-rC-2Sq">
-                                <rect key="frame" x="112" y="604" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="自动模式"/>
-                                <connections>
-                                    <action selector="autoTakePicEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="azh-pX-Bko"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIE-4x-Oa9">
-                                <rect key="frame" x="46" y="609" width="34" height="25"/>
+                                <rect key="frame" x="137" y="607" width="34" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="返回"/>
                                 <connections>
@@ -89,7 +81,6 @@
                         <outlet property="_liveView" destination="EfB-xq-knP" id="JQp-2n-q9q"/>
                         <outlet property="_noCameraLabel" destination="emf-N5-sEd" id="91G-3Z-cU3"/>
                         <outlet property="backBtn" destination="BIE-4x-Oa9" id="24I-of-qFs"/>
-                        <outlet property="modeBtn" destination="nhj-rC-2Sq" id="Mcl-6d-e7u"/>
                         <outlet property="takingPicBtn" destination="Myh-Ru-nRo" id="GAj-UB-ksz"/>
                     </connections>
                 </viewController>

@@ -9,7 +9,7 @@
 #import "MMOpenCVHelper.h"
 
 @implementation MMOpenCVHelper
-+ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat
++ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat scale:(CGFloat)scale
 {
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
     
@@ -36,7 +36,7 @@
                                         kCGRenderingIntentDefault);                     // Intent
     
 //    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-    UIImage *image = [[UIImage alloc]initWithCGImage:imageRef scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
+    UIImage *image = [[UIImage alloc]initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(colorSpace);

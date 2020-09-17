@@ -13,7 +13,7 @@
 
 
 @interface MMOpenCVHelper : NSObject
-+ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat;
++ (UIImage *)UIImageFromCVMat:(cv::Mat)cvMat scale:(CGFloat)scale;
 
 + (cv::Mat)cvMatFromAdjustedUIImage:(UIImage *)image;
 + (cv::Mat)cvMatFromUIImage:(UIImage *)image;
