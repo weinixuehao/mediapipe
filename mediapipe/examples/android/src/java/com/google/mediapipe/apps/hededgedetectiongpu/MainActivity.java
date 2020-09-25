@@ -83,10 +83,12 @@ public class MainActivity extends AppCompatActivity {
   // Handles camera access via the {@link CameraX} Jetpack support library.
   private CameraXMultipleUseCaseHelper cameraHelper;
 
+  private long mHedRef;
+
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    HedEdgeDetection.uninit();
+    HedEdgeDetection.uninit(mHedRef);
   }
 
   @Override
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     // binary graphs.
     AndroidAssetUtil.initializeNativeAssetManager(this);
 
-    HedEdgeDetection.init("mediapipe/models/hed_graph.tflite");
+    this.mHedRef = HedEdgeDetection.init("mediapipe/models/hed_graph.tflite");
     eglManager = new EglManager(null);
     processor =
         new FrameProcessor(
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onImageSaved(File file) {
           Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-          List<PointF> points = HedEdgeDetection.run(bitmap);
+          List<PointF> points = HedEdgeDetection.run(bitmap, mHedRef);
           bitmap.recycle();
           Log.i(TAG, "points=>"+points.size() + " thread=>"+Thread.currentThread().getName());
 
