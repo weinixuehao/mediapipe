@@ -31,7 +31,7 @@ objc_library(
     }),
 )
 
-# bazel build --config=ios_fat --apple_bitcode=embedded --copt=-fembed-bitcode mediapipe/examples/ios/frameworks:HedEdgeDetect --linkopt="-s"
+# bazel build --ios_multi_cpus=armv7,arm64,x86_64 --apple_bitcode=embedded --copt=-fembed-bitcode mediapipe/examples/ios/frameworks:HedEdgeDetect --linkopt="-s"
 ios_framework(
     name = "HedEdgeDetect",
     # If `hdrs` isn't set Headers and Modules folders won't get generated

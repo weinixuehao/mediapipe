@@ -25,6 +25,7 @@
 #include <string>
 #include "fm_ocr_scanner.h"
 #include <cstdlib>
+#define DETECT_THRESHOLD 14
 
 namespace mediapipe
 {
@@ -64,7 +65,8 @@ namespace mediapipe
         int height_ = 0;
         float ratio_x = 0;
         float ratio_y = 0;
-        int contour_status = 0;
+        int invalid_rect_count = 0;
+        int undetect_count = 0;
     };
 
     ::mediapipe::Status HedEdgeDetectionCalculator::GetContract(CalculatorContract *cc)
@@ -235,6 +237,7 @@ namespace mediapipe
         static int count = 0;
         if (find_rect)
         {
+            this->undetect_count = 0;
             cv::Mat *img = image_mat.get();
             std::vector<cv::Point> real_points(4);
             for (int i = 0, len = cv_points.size(); i < len; i++)
@@ -243,26 +246,28 @@ namespace mediapipe
                 real_points[i] = real_point;
             }
             bool reliableRect = this->reliableRect(real_points);
-            count = reliableRect ? ++count : count;
+            if (reliableRect) {
+                ++count;
+                this->invalid_rect_count = 0;
+            } else {
+                this->invalid_rect_count++;
+            }
             cv::fillConvexPoly(*img, real_points, reliableRect ? cv::Scalar(0, 255, 0) : cv::Scalar(255, 0, 0));
-            if (count > 14) {
-                this->contour_status = 2;
-                std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
+            if (count > DETECT_THRESHOLD) {
+                std::unique_ptr<int> result = absl::make_unique<int>(0);
                 cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
                 count = 0;
-            } else {
-                if (this->contour_status != 1) {
-                    this->contour_status = 1;
-                    std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
-                    cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
-                }
+            } else if (count > 3 && reliableRect) {
+                std::unique_ptr<int> result = absl::make_unique<int>(1);
+                cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
+            } else if (this->invalid_rect_count > 4){
+                std::unique_ptr<int> result = absl::make_unique<int>(2);
+                cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
             }
         } else {
-            count = 0;
-            if (this->contour_status != 0) {
-                this->contour_status = 0;
-                std::unique_ptr<int> result = absl::make_unique<int>(this->contour_status);
-                cc->Outputs().Tag("CONTOUR_STATUS").Add(result.release(), cc->InputTimestamp());
+            this->undetect_count++;
+            if (this->undetect_count > 3) {
+                count = 0;
             }
         }
         return ::mediapipe::OkStatus();
@@ -275,10 +280,10 @@ namespace mediapipe
         int rightSide = points[2].y - points[1].y;
         size_t perimeter = (width_ + height_) * 2;
         float times = perimeter / (float)(topSide + rightSide + bottomSide + leftSide);
-        if (times > 2.0) {
+        if (times > 3) {
             return false;
         }
-        return std::abs(topSide-bottomSide) < 80 && std::abs(leftSide - rightSide) < 80;
+        return std::abs(topSide-bottomSide) < 130 && std::abs(leftSide - rightSide) < 130;
     }
 
     ::mediapipe::Status HedEdgeDetectionCalculator::renderToGpu(CalculatorContext *cc, uchar *overlay_image)

@@ -4,3 +4,5 @@ bazel build -c opt --host_crosstool_top=@bazel_tools//tools/cpp:toolchain --fat_
 
 
 bazel build -c opt mediapipe/examples/android/src/java/com/google/mediapipe/apps/aar_example:binary_graph --verbose_failures
+
+# If failed to download the dependences of this project try to with the two cmds --distdir=cache --repository_cache=cache 
