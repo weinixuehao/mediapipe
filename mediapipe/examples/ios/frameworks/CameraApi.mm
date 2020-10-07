@@ -215,6 +215,7 @@ static const char* kVideoQueueLabel = "com.google.mediapipe.example.videoQueue";
     [self.mediapipeGraph cancel];
     // Ignore errors since we're cleaning up.
     [self.mediapipeGraph closeAllInputStreamsWithError:nil];
+    if (_videoQueue) return;
     dispatch_async(_videoQueue, ^{
         [self.mediapipeGraph waitUntilDoneWithError:nil];
         if (currentPixelBufRef) {
