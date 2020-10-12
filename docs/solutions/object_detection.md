@@ -2,7 +2,7 @@
 layout: default
 title: Object Detection
 parent: Solutions
-nav_order: 5
+nav_order: 7
 ---
 
 # MediaPipe Object Detection
@@ -19,7 +19,7 @@ nav_order: 5
 Note: To visualize a graph, copy the graph and paste it into
 [MediaPipe Visualizer](https://viz.mediapipe.dev/). For more information on how
 to visualize its associated subgraphs, please see
-[visualizer documentation](../visualizer.md).
+[visualizer documentation](../tools/visualizer.md).
 
 ### Mobile
 
@@ -95,8 +95,8 @@ Please first see general instructions for
 
     ```
     GLOG_logtostderr=1 bazel-bin/mediapipe/examples/desktop/object_detection/object_detection_tflite \
-    --calculator_graph_config_file=mediapipe/graphs/object_detection/object_detection_desktop_tflite_graph.pbtxt \
-    --input_side_packets=input_video_path=<input video path>,output_video_path=<output video path>
+      --calculator_graph_config_file=mediapipe/graphs/object_detection/object_detection_desktop_tflite_graph.pbtxt \
+      --input_side_packets=input_video_path=<input video path>,output_video_path=<output video path>
     ```
 
 *   With a TensorFlow Model
@@ -131,8 +131,8 @@ Please first see general instructions for
 
     ```bash
     GLOG_logtostderr=1 bazel-bin/mediapipe/examples/desktop/object_detection/object_detection_tflite \
-    --calculator_graph_config_file=mediapipe/graphs/object_detection/object_detection_desktop_tensorflow_graph.pbtxt \
-    --input_side_packets=input_video_path=<input video path>,output_video_path=<output video path>
+      --calculator_graph_config_file=mediapipe/graphs/object_detection/object_detection_desktop_tensorflow_graph.pbtxt \
+      --input_side_packets=input_video_path=<input video path>,output_video_path=<output video path>
     ```
 
 ### Coral
@@ -144,7 +144,4 @@ to cross-compile and run MediaPipe examples on the
 
 ## Resources
 
-*   [TFLite model](https://github.com/google/mediapipe/tree/master/mediapipe/models/ssdlite_object_detection.tflite)
-*   [TFLite model quantized for EdgeTPU/Coral](https://github.com/google/mediapipe/tree/master/mediapipe/examples/coral/models/object-detector-quantized_edgetpu.tflite)
-*   [TensorFlow model](https://github.com/google/mediapipe/tree/master/mediapipe/models/object_detection_saved_model)
-*   [Model information](https://github.com/google/mediapipe/tree/master/mediapipe/models/object_detection_saved_model/README.md)
+*   [Models and model cards](./models.md#object_detection)

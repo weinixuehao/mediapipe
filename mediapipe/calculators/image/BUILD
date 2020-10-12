@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("//mediapipe/framework/port:build_config.bzl", "mediapipe_cc_proto_library")
+load("//mediapipe/framework/port:build_config.bzl", "mediapipe_cc_proto_library", "mediapipe_proto_library")
 
-licenses(["notice"])  # Apache 2.0
+licenses(["notice"])
 
 package(default_visibility = ["//visibility:private"])
 
@@ -279,25 +279,15 @@ cc_library(
     alwayslink = 1,
 )
 
-proto_library(
+mediapipe_proto_library(
     name = "image_transformation_calculator_proto",
     srcs = ["image_transformation_calculator.proto"],
     visibility = ["//visibility:public"],
     deps = [
+        "//mediapipe/framework:calculator_options_proto",
         "//mediapipe/framework:calculator_proto",
         "//mediapipe/gpu:scale_mode_proto",
     ],
-)
-
-mediapipe_cc_proto_library(
-    name = "image_transformation_calculator_cc_proto",
-    srcs = ["image_transformation_calculator.proto"],
-    cc_deps = [
-        "//mediapipe/framework:calculator_cc_proto",
-        "//mediapipe/gpu:scale_mode_cc_proto",
-    ],
-    visibility = ["//visibility:public"],
-    deps = [":image_transformation_calculator_proto"],
 )
 
 cc_library(
@@ -629,4 +619,35 @@ cc_library(
         "@org_tensorflow//tensorflow/lite:framework",
     ],
     alwayslink = 1,
+)
+
+cc_library(
+    name = "image_file_properties_calculator",
+    srcs = ["image_file_properties_calculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework/formats:image_file_properties_cc_proto",
+        "//mediapipe/framework/port:ret_check",
+        "//mediapipe/framework/port:status",
+        "@easyexif",
+    ],
+    alwayslink = 1,
+)
+
+cc_test(
+    name = "image_file_properties_calculator_test",
+    srcs = ["image_file_properties_calculator_test.cc"],
+    data = ["//mediapipe/calculators/image/testdata:test_images"],
+    deps = [
+        ":image_file_properties_calculator",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:calculator_runner",
+        "//mediapipe/framework/deps:file_path",
+        "//mediapipe/framework/formats:image_file_properties_cc_proto",
+        "//mediapipe/framework/port:file_helpers",
+        "//mediapipe/framework/port:gtest_main",
+        "//mediapipe/framework/port:parse_text_proto",
+        "//mediapipe/framework/port:status",
+    ],
 )

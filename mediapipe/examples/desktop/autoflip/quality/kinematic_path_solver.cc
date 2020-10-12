@@ -10,6 +10,12 @@ namespace autoflip {
     current_time_ = time_us;
     initialized_ = true;
     current_velocity_deg_per_s_ = 0;
+    RET_CHECK_GT(pixels_per_degree_, 0)
+        << "pixels_per_degree must be larger than 0.";
+    RET_CHECK_GE(options_.update_rate_seconds(), 0)
+        << "update_rate_seconds must be greater than 0.";
+    RET_CHECK_GE(options_.min_motion_to_reframe(), options_.reframe_window())
+        << "Reframe window cannot exceed min_motion_to_reframe.";
     return ::mediapipe::OkStatus();
   }
 
@@ -22,6 +28,14 @@ namespace autoflip {
   if (abs(delta_degs) < options_.min_motion_to_reframe()) {
     position = current_position_px_;
     delta_degs = 0;
+  } else if (delta_degs > 0) {
+    // Apply new position, less the reframe window size.
+    position = position - pixels_per_degree_ * options_.reframe_window();
+    delta_degs = (position - current_position_px_) / pixels_per_degree_;
+  } else {
+    // Apply new position, plus the reframe window size.
+    position = position + pixels_per_degree_ * options_.reframe_window();
+    delta_degs = (position - current_position_px_) / pixels_per_degree_;
   }
 
   // Time and position updates.
@@ -29,9 +43,10 @@ namespace autoflip {
 
   // Observed velocity and then weighted update of this velocity.
   double observed_velocity = delta_degs / delta_t;
-  double updated_velocity =
-      current_velocity_deg_per_s_ * (1 - options_.update_rate()) +
-      observed_velocity * options_.update_rate();
+  double update_rate = std::min(delta_t / options_.update_rate_seconds(),
+                                options_.max_update_rate());
+  double updated_velocity = current_velocity_deg_per_s_ * (1 - update_rate) +
+                            observed_velocity * update_rate;
   // Limited current velocity.
   current_velocity_deg_per_s_ =
       updated_velocity > 0 ? fmin(updated_velocity, options_.max_velocity())
@@ -69,6 +84,14 @@ namespace autoflip {
 ::mediapipe::Status KinematicPathSolver::GetState(int* position) {
   RET_CHECK(initialized_) << "GetState called before first observation added.";
   *position = round(current_position_px_);
+  return ::mediapipe::OkStatus();
+}
+
+::mediapipe::Status KinematicPathSolver::UpdatePixelsPerDegree(
+    const float pixels_per_degree) {
+  RET_CHECK_GT(pixels_per_degree_, 0)
+      << "pixels_per_degree must be larger than 0.";
+  pixels_per_degree_ = pixels_per_degree;
   return ::mediapipe::OkStatus();
 }
 

@@ -20,6 +20,7 @@ import android.media.AudioFormat;
 import android.os.Handler;
 import android.util.Log;
 import com.google.common.base.Preconditions;
+import com.google.mediapipe.proto.CalculatorProto.CalculatorGraphConfig;
 import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.framework.AndroidPacketCreator;
 import com.google.mediapipe.framework.Graph;
@@ -32,10 +33,12 @@ import com.google.mediapipe.framework.SurfaceOutput;
 import com.google.mediapipe.framework.TextureFrame;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nullable;
 
@@ -107,6 +110,15 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
   }
 
   /**
+   * Constructor.
+   *
+   * @param graphConfig the proto object representation of the graph.
+   */
+  public FrameProcessor(CalculatorGraphConfig graphConfig) {
+    initializeGraphAndPacketCreator(graphConfig);
+  }
+
+  /**
    * Initializes a graph for processing data in real time.
    *
    * @param context an Android {@link Context}.
@@ -120,6 +132,17 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
       mediapipeGraph.loadBinaryGraph(
           AndroidAssetUtil.getAssetBytes(context.getAssets(), graphName));
     }
+    packetCreator = new AndroidPacketCreator(mediapipeGraph);
+  }
+
+  /**
+   * Initializes a graph for processing data in real time.
+   *
+   * @param graphConfig the proto object representation of the graph.
+   */
+  private void initializeGraphAndPacketCreator(CalculatorGraphConfig graphConfig) {
+    mediapipeGraph = new Graph();
+    mediapipeGraph.loadBinaryGraph(graphConfig);
     packetCreator = new AndroidPacketCreator(mediapipeGraph);
   }
 
@@ -186,6 +209,8 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
                 currentConsumers = videoConsumers;
               }
               for (TextureFrameConsumer consumer : currentConsumers) {
+                // Note: each consumer will release its TextureFrame, so each gets a separate object
+                // (though they all reference the same data).
                 TextureFrame frame = PacketGetter.getTextureFrame(packet);
                 if (Log.isLoggable(TAG, Log.VERBOSE)) {
                   Log.v(
@@ -208,19 +233,20 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
    *
    * @param inputStream the graph input stream that will receive input audio samples.
    * @param outputStream the output stream from which output audio samples will be produced.
-   * @param numChannels the number of audio channels in the input audio stream.
+   * @param numInputChannels the number of audio channels in the input audio stream.
+   * @param numOutputChannels the number of audio channels in the output audio stream. If there is
+   *                          no output stream, set this to zero.
    * @param audioSampleRateInHz the sample rate for audio samples in hertz (Hz).
    */
   public void addAudioStreams(
       @Nullable String inputStream,
       @Nullable String outputStream,
-      int numChannels,
+      int numInputChannels,
+      int numOutputChannels,
       double audioSampleRateInHz) {
     audioInputStream = inputStream;
     audioOutputStream = outputStream;
-    numAudioChannels = numChannels;
-    int audioChannelMask =
-        numAudioChannels == 2 ? AudioFormat.CHANNEL_IN_STEREO : AudioFormat.CHANNEL_IN_MONO;
+    numAudioChannels = numInputChannels;
     audioSampleRate = audioSampleRateInHz;
 
     if (audioInputStream != null) {
@@ -229,11 +255,13 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
     }
 
     if (audioOutputStream != null) {
+      int outputAudioChannelMask =
+          numOutputChannels == 2 ? AudioFormat.CHANNEL_IN_STEREO : AudioFormat.CHANNEL_IN_MONO;
       AudioFormat audioFormat =
           new AudioFormat.Builder()
               .setEncoding(AUDIO_ENCODING)
               .setSampleRate((int) audioSampleRate)
-              .setChannelMask(audioChannelMask)
+              .setChannelMask(outputAudioChannelMask)
               .build();
       mediapipeGraph.addPacketCallback(
           audioOutputStream,
@@ -373,9 +401,10 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
 
   /**
    * Returns true if the MediaPipe graph can accept one more input frame.
+   *
    * @throws MediaPipeException for any error status.
    */
-  private boolean maybeAcceptNewFrame() {
+  private boolean maybeAcceptNewFrame(long timestamp) {
     if (!started.getAndSet(true)) {
       startGraph();
     }
@@ -395,7 +424,7 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
                 frame.getTextureName(), frame.getWidth(), frame.getHeight()));
       }
 
-      if (!maybeAcceptNewFrame()) {
+      if (!maybeAcceptNewFrame(frame.getTimestamp())) {
         return;
       }
 
@@ -451,7 +480,7 @@ public class FrameProcessor implements TextureFrameProcessor, AudioDataProcessor
   public void onNewFrame(final Bitmap bitmap, long timestamp) {
     Packet packet = null;
     try {
-      if (!maybeAcceptNewFrame()) {
+      if (!maybeAcceptNewFrame(timestamp)) {
         return;
       }
 

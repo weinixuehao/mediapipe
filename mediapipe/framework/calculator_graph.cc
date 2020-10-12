@@ -330,6 +330,9 @@ CalculatorGraph::~CalculatorGraph() {
 ::mediapipe::Status CalculatorGraph::InitializeDefaultExecutor(
     const ThreadPoolExecutorOptions* default_executor_options,
     bool use_application_thread) {
+#ifdef __EMSCRIPTEN__
+  use_application_thread = true;
+#endif  // __EMSCRIPTEN__
   // If specified, run synchronously on the calling thread.
   if (use_application_thread) {
     use_application_thread_ = true;
@@ -575,7 +578,7 @@ CalculatorGraph::PrepareGpu(const std::map<std::string, Packet>& side_packets) {
     // Set up executors.
     for (auto& node : *nodes_) {
       if (node.UsesGpu()) {
-        gpu_resources->PrepareGpuNode(&node);
+        MP_RETURN_IF_ERROR(gpu_resources->PrepareGpuNode(&node));
       }
     }
     for (const auto& name_executor : gpu_resources->GetGpuExecutors()) {
