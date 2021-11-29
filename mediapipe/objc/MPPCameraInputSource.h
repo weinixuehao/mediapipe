@@ -55,4 +55,7 @@
 /// method simply returns the saved response to the permission request.
 - (void)requestCameraAccessWithCompletionHandler:(void (^_Nullable)(BOOL granted))handler;
 
+//This function be added by Tom.Chen.
+- (void)takePic:(id<AVCapturePhotoCaptureDelegate>_Nonnull)delegate;
+
 @end

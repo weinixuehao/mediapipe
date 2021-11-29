@@ -4,3 +4,24 @@ mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
 mediapipe/provisioning_profile.mobileprovision
 .configure.bazelrc
 .user.bazelrc
+mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj/xcuserdata
+mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj/project.xcworkspace/xcuserdata
+
+.DS_Store
+.aswb/
+bazel-mediapipe
+cache/
+local_cache/
+.vscode
+mediapipe/examples/ios/hededgedetectiongpu/Mediapipe.xcodeproj
+
+#The following configuration files produced by Qt creator when import an c++ project.
+mediapipe.cflags
+mediapipe.config
+mediapipe.creator
+mediapipe.cxxflags
+mediapipe.files
+mediapipe.includes
+mediapipe.creator.user
+mediapipe.includes.autosave
+

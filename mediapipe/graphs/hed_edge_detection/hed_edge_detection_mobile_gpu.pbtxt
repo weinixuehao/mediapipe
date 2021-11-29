@@ -1,0 +1,77 @@
+# MediaPipe graph that performs face detection with TensorFlow Lite on GPU.
+# Used in the examples in
+# mediapipie/examples/android/src/java/com/mediapipe/apps/facedetectiongpu and
+# mediapipie/examples/ios/facedetectiongpu.
+
+# Images on GPU coming into and out of the graph.
+input_stream: "input_video"
+output_stream: "output_video"
+
+# Throttles the images flowing downstream for flow control. It passes through
+# the very first incoming image unaltered, and waits for
+# TfLiteTensorsToDetectionsCalculator downstream in the graph to finish
+# generating the corresponding detections before it passes through another
+# image. All images that come in while waiting are dropped, limiting the number
+# of in-flight images between this calculator and
+# TfLiteTensorsToDetectionsCalculator to 1. This prevents the nodes in between
+# from queuing up incoming images and data excessively, which leads to increased
+# latency and memory usage, unwanted in real-time mobile applications. It also
+# eliminates unnecessarily computation, e.g., a transformed image produced by
+# ImageTransformationCalculator may get dropped downstream if the subsequent
+# TfLiteConverterCalculator or TfLiteInferenceCalculator is still busy
+# processing previous inputs.
+node {
+  calculator: "FlowLimiterCalculator"
+  input_stream: "input_video"
+  input_stream: "FINISHED:edge_map"
+  input_stream_info: {
+    tag_index: "FINISHED"
+    back_edge: true
+  }
+  output_stream: "throttled_input_video"
+}
+
+# Transforms the input image on GPU to a 128x128 image. To scale the input
+# image, the scale_mode option is set to FIT to preserve the aspect ratio,
+# resulting in potential letterboxing in the transformed image.
+node: {
+  calculator: "ImageTransformationCalculator"
+  input_stream: "IMAGE_GPU:throttled_input_video"
+  output_stream: "IMAGE_GPU:transformed_input_video"
+  node_options: {
+    [type.googleapis.com/mediapipe.ImageTransformationCalculatorOptions] {
+      output_width: 256
+      output_height: 256
+    }
+  }
+}
+
+# Converts the transformed input image on GPU into an image tensor stored as a
+# TfLiteTensor.
+node {
+  calculator: "TfLiteConverterCalculator"
+  input_stream: "IMAGE_GPU:transformed_input_video"
+  output_stream: "TENSORS_GPU:image_tensor"
+}
+
+# Runs a TensorFlow Lite model on GPU that takes an image tensor and outputs a
+# vector of tensors representing, for instance, detection boxes/keypoints and
+# scores.
+node {
+  calculator: "TfLiteInferenceCalculator"
+  input_stream: "TENSORS_GPU:image_tensor"
+  output_stream: "TENSORS:edge_map"
+  node_options: {
+    [type.googleapis.com/mediapipe.TfLiteInferenceCalculatorOptions] {
+      model_path: "mediapipe/models/hed_graph.tflite"
+    }
+  }
+}
+
+node {
+  calculator: "HedEdgeDetectionCalculator"
+  input_stream: "edge_map"
+  input_stream: "IMAGE_GPU:throttled_input_video"
+  output_stream: "IMAGE_GPU:output_video"
+  output_stream: "CONTOUR_STATUS:capture_img"
+}

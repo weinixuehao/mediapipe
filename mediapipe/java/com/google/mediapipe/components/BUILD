@@ -21,6 +21,7 @@ android_library(
         exclude = [
             "CameraHelper.java",
             "CameraXPreviewHelper.java",
+            "CameraXMultipleUseCaseHelper.java",
         ],
     ),
     visibility = ["//visibility:public"],
@@ -44,6 +45,7 @@ android_library(
     srcs = [
         "CameraHelper.java",
         "CameraXPreviewHelper.java",
+        "CameraXMultipleUseCaseHelper.java",
     ],
     visibility = ["//visibility:public"],
     deps = [

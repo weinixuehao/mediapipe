@@ -1,0 +1,56 @@
+{
+  "additionalFilePaths" : [
+    "/BUILD",
+    "mediapipe/BUILD",
+    "mediapipe/objc/BUILD",
+    "mediapipe/examples/ios/BUILD",
+    "mediapipe/examples/ios/edgedetectiongpu/BUILD",
+    "mediapipe/examples/ios/facedetectioncpu/BUILD",
+    "mediapipe/examples/ios/facedetectiongpu/BUILD",
+    "mediapipe/examples/ios/facemeshgpu/BUILD",
+    "mediapipe/examples/ios/handdetectiongpu/BUILD",
+    "mediapipe/examples/ios/handtrackinggpu/BUILD",
+    "mediapipe/examples/ios/multihandtrackinggpu/BUILD",
+    "mediapipe/examples/ios/objectdetectioncpu/BUILD",
+    "mediapipe/examples/ios/objectdetectiongpu/BUILD"
+  ],
+  "buildTargets" : [
+    "//mediapipe/examples/ios/hededgedetectiongpu:HedEdgeDetectionApp"
+  ],
+  "optionSet" : {
+
+  },
+  "projectName" : "Mediapipe",
+  "sourceFilters" : [
+    "mediapipe",
+    "mediapipe/calculators",
+    "mediapipe/calculators/core",
+    "mediapipe/calculators/custom",
+    "mediapipe/calculators/image",
+    "mediapipe/calculators/internal",
+    "mediapipe/calculators/tflite",
+    "mediapipe/examples/ios",
+    "mediapipe/examples/ios/hededgedetectiongpu",
+    "mediapipe/examples/ios/hededgedetectiongpu/Base.lproj",
+    "mediapipe/framework",
+    "mediapipe/framework/deps",
+    "mediapipe/framework/formats",
+    "mediapipe/framework/formats/annotation",
+    "mediapipe/framework/formats/object_detection",
+    "mediapipe/framework/port",
+    "mediapipe/framework/profiler",
+    "mediapipe/framework/stream_handler",
+    "mediapipe/framework/tool",
+    "mediapipe/gpu",
+    "mediapipe/graphs",
+    "mediapipe/graphs/hed_edge_detection",
+    "mediapipe/models",
+    "mediapipe/objc",
+    "mediapipe/util",
+    "mediapipe/util/android",
+    "mediapipe/util/android/file",
+    "mediapipe/util/android/file/base",
+    "mediapipe/util/tflite",
+    "mediapipe/util/tflite/operations"
+  ]
+}
